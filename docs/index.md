@@ -19,4 +19,4 @@ Welcome! This page is the starting point for all user guides, design notes, and 
 - [Transformers Gemma Example](transformers_gemma_example.md)
 
 ---
-_Last updated: 2025-07-03_
+Last updated: 2025-07-03

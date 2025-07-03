@@ -5,11 +5,11 @@ Deterministic, auditable post-processing governance framework for Large Language
 Constraint Lattice lets you **compose pluggable constraints** that rewrite, redact, or regenerate model output until it satisfies your policy. Each execution is fully auditable and can be replayed bit-for-bit—all without retraining the model.
 
 ## Features
-- 🛡️ Declarative YAML pipelines driving pure-Python `Constraint` classes
-- 🔌 Integrations: CLI (`cl-apply`), Python SDK, FastAPI micro-service, Streamlit audit viewer, WordPress plugin, SaaS starter
-- 🔍 Deterministic execution with JSONL audit logs for governance & red-team review
-- ⚡ Optional GPU-accelerated moderation via vLLM / JAX
-- 📊 Prometheus metrics & Stripe billing hooks for production SaaS deployments
+- Declarative YAML pipelines driving pure-Python `Constraint` classes
+- Multiple integration options: CLI (`cl-apply`), Python SDK, FastAPI micro-service, Streamlit audit viewer, WordPress plugin, and SaaS starter kit
+- Deterministic execution with JSONL audit logs suitable for governance and red-team review
+- Optional GPU-accelerated moderation via vLLM or JAX
+- Prometheus metrics and Stripe billing hooks for production SaaS deployments
 
 ## Install
 
@@ -22,7 +22,7 @@ pip install "constraint-lattice[api]"    # +FastAPI micro-service
 Or clone the repo for development:
 
 ```bash
-git clone https://github.com/your-username/Constraint-Lattice.git
+git clone https://github.com/ochoaughini/Constraint-Lattice.git
 cd Constraint-Lattice
 pip install -e .[dev]    # Lint, type-check, tests
 ```

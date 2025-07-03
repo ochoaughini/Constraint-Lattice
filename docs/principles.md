@@ -31,11 +31,11 @@ Unlike rule-only or graph-only knowledge bases, the Constraint Lattice explicitl
 By computing meets and joins, the engine can deduce what else must hold. For example, given two independent constraints, their meet represents the combined restriction—yielding new inferences automatically.
 
 ## Benefits of a Formal Language Approach
-- **Precision & rigor** – formal syntax eliminates ambiguity.  
-- **Mathematical foundations** – lattice theory offers a solid algebraic basis.  
-- **Automated reasoning & verification** – enables constraint propagation, conflict detection, satisfiability algorithms.  
-- **Improved communication** – shared formal language for unambiguous collaboration.  
-- **Adaptability & evolution** – monotonic structure gracefully handles changing requirements.  
-- **Expressiveness** – permits complex and recursive constraint grammars.  
-- **Early detection of inconsistencies**  
-- **Robust extensibility** via pluggable constraint classes and lattice enrichments
+- Precision and rigor – formal syntax eliminates ambiguity.  
+- Strong mathematical foundations based on lattice theory.  
+- Automated reasoning and verification (constraint propagation, conflict detection, satisfiability checks).  
+- Improved communication through a shared formal vocabulary.  
+- Adaptability to evolving requirements via monotonic structure.  
+- Expressiveness for nested and recursive constraint grammars.  
+- Early detection of inconsistencies.  
+- Robust extensibility through pluggable constraint classes and lattice enrichments
