@@ -12,8 +12,8 @@ WORKDIR /app
 FROM base AS builder
 
 # Copy only dependency files first for better cache usage
-COPY --link pyproject.toml ./
-COPY --link requirements-lock.txt ./
+COPY pyproject.toml ./
+COPY requirements-lock.txt ./
 
 # Create venv and install dependencies (core + web server)
 RUN --mount=type=cache,target=$PIP_CACHE_DIR \
@@ -32,7 +32,7 @@ WORKDIR /app
 COPY --from=builder /app/.venv /app/.venv
 
 # Copy the rest of the application code (excluding .git, .env, etc. via .dockerignore)
-COPY --link . .
+COPY . .
 
 # Set PATH to use the venv
 ENV PATH="/app/.venv/bin:$PATH"
@@ -42,10 +42,11 @@ ENV PATH="/app/.venv/bin:$PATH"
 ENV PYTHONPATH=/app/src:/app
 
 # Expose the default port
-EXPOSE 8000
+# Cloud Run sets $PORT (default 8080). For local compose we still map 8000:8000.
+EXPOSE 8080
 
 # Container health check
-HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 CMD curl -f http://localhost:8000/health || exit 1
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 CMD /bin/sh -c 'curl -f http://localhost:${PORT:-8080}/health || exit 1'
 
 USER appuser
 
