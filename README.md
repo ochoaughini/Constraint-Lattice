@@ -110,6 +110,16 @@ ruff check .
 mypy .
 ```
 
+## Documentation
+
+- [Tutorial](docs/tutorial.md)
+- [Principles and Theory](docs/principles.md)
+- [Formal Language Approach](docs/formal_language_approach.md)
+- [Hybrid Deployment Strategy](docs/hybrid_deployment_strategy.md)
+- [Phi-2 Integration Proposal](docs/phi2_integration_proposal.md)
+- [Example: Transformers Gemma](docs/transformers_gemma_example.md)
+
+
 ## Contributing
 
 PRs are welcome! Please see `CONTRIBUTING.md` for the workflow, code style, and a list of good first issues.
