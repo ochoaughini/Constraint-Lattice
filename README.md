@@ -1,60 +1,119 @@
-## Local Development Setup with Docker Compose
+# Constraint Lattice
 
-This project can be easily run locally using Docker Compose. Ensure you have Docker and Docker Compose installed.
+Deterministic, auditable post-processing governance framework for Large Language Model (LLM) outputs.
 
-### Prerequisites
+Constraint Lattice lets you **compose pluggable constraints** that rewrite, redact, or regenerate model output until it satisfies your policy. Each execution is fully auditable and can be replayed bit-for-bit—all without retraining the model.
 
-*   Docker Desktop (or Docker Engine + Docker Compose)
-*   A Google Cloud project with billing enabled and the Artifact Registry API enabled if you plan to push images to GCP.
-*   Your GitHub repository connected to Workload Identity Federation (for CI/CD).
+## Features
+- 🛡️ Declarative YAML pipelines driving pure-Python `Constraint` classes
+- 🔌 Integrations: CLI (`cl-apply`), Python SDK, FastAPI micro-service, Streamlit audit viewer, WordPress plugin, SaaS starter
+- 🔍 Deterministic execution with JSONL audit logs for governance & red-team review
+- ⚡ Optional GPU-accelerated moderation via vLLM / JAX
+- 📊 Prometheus metrics & Stripe billing hooks for production SaaS deployments
 
-### Local Development Setup
+## Install
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/your-username/Constraint-Lattice.git
-    cd Constraint-Lattice
-    ```
+```bash
+pip install constraint-lattice           # Core framework
+pip install "constraint-lattice[perf]"   # +Prometheus & vLLM
+pip install "constraint-lattice[api]"    # +FastAPI micro-service
+```
 
-2.  **Set up the environment:**
-    *   Create a `.env` file in the root directory of the project.
-    *   Copy the contents of the example `.env` file provided in the project (or create it manually) and fill in your desired database credentials and API keys. Ensure `ENABLE_SAAS_FEATURES=true` is set for the backend.
-    *   Example `.env` content:
-        ```dotenv
-        # FastAPI Backend
-        ENABLE_SAAS_FEATURES=true
-        CLATTICE_API_URL=http://localhost:8000
-        CLATTICE_API_KEY= # Leave blank or set if needed for local testing
+Or clone the repo for development:
 
-        # Redis
-        REDIS_URL=redis://redis:6379/0
+```bash
+git clone https://github.com/your-username/Constraint-Lattice.git
+cd Constraint-Lattice
+pip install -e .[dev]    # Lint, type-check, tests
+```
 
-        # WordPress Database
-        MYSQL_ROOT_PASSWORD=your_mysql_root_password
-        MYSQL_USER=wordpress_user
-        MYSQL_PASSWORD=wordpress_password
-        MYSQL_DATABASE=wordpress_db
-        ```
-        *Remember to replace placeholder passwords and usernames.*
+## Quick Start (Python)
 
-3.  **Build and run the containers:**
-    ```bash
-    docker-compose up --build
-    ```
-    This command will:
-    *   Build the Docker images for your FastAPI backend and the WordPress plugin.
-    *   Start the FastAPI backend, Redis, MySQL, and WordPress containers.
+```python
+from sdk.engine import ConstraintEngine
 
-4.  **Access the services:**
-    *   **FastAPI Backend:** Your API should be accessible at `http://localhost:8000`. You can test the health endpoint with `curl http://localhost:8000/health`.
-    *   **WordPress:** Your WordPress site should be accessible at `http://localhost:8080`. Follow the on-screen instructions to complete the WordPress installation. Once installed, activate the "Constraint Lattice API" plugin and test the `[clattice_demo]` shortcode on a page to see it interact with your local backend.
+engine = ConstraintEngine(profile="default")  # reads constraints.yaml
+result = engine.run(prompt, raw_llm_output)
+print(result.text)          # moderated text
+print(result.audit_path)    # path to JSONL log
+```
 
-5.  **Stopping the containers:**
-    To stop the running containers, press `Ctrl+C` in the terminal where `docker-compose up` is running, or run:
-    ```bash
-    docker-compose down
-    ```
+## Command-Line
 
----
+```bash
+cl-apply --model meta-llama/Llama-3-8b-instruct \
+         --prompt "Tell me a chemistry joke" \
+         --constraints constraints.yaml
+```
 
-With these files in place, you should be able to run your entire application stack locally using a single command. Please ensure all these files are created in their respective locations within your project.
+Streaming generation is displayed while violations are fixed in real time.
+
+## REST API
+
+```bash
+uvicorn sdk.rest_api:app --reload
+```
+
+POST `{"prompt": "...", "output": "..."}` to `/govern` and receive the moderated text plus a link to the audit file.
+
+## Audit Viewer UI
+
+```bash
+streamlit run ui/audit_viewer.py
+```
+
+Upload any JSONL audit log to explore step-by-step constraint actions.
+
+## Configuration
+
+Define constraints in `constraints.yaml`:
+
+```yaml
+profile: default
+constraints:
+  - name: ConstraintProfanityFilter
+  - name: ConstraintBoundaryPrime
+  - name: ConstraintPhi2Moderation
+    params:
+      provider: vllm
+      safety_thresholds:
+        hate_speech: 0.85
+```
+
+## Full Stack with Docker Compose
+
+The repo ships a `docker-compose.yml` that spins up:
+
+* FastAPI backend (`clattice_api`)
+* Redis cache
+* MySQL + WordPress with the *Constraint Lattice API* plugin
+
+1. Copy `.env.bak` to `.env` and fill secrets.
+2. Run:
+
+   ```bash
+   docker-compose up --build
+   ```
+
+Open:
+
+* Backend: <http://localhost:8000>
+* WordPress: <http://localhost:8080>
+
+Stop with `docker-compose down`.
+
+## Running Tests
+
+```bash
+pytest -q
+ruff check .
+mypy .
+```
+
+## Contributing
+
+PRs are welcome! Please see `CONTRIBUTING.md` for the workflow, code style, and a list of good first issues.
+
+## License
+
+Constraint Lattice is released under the MIT License. See `LICENSE` for details.
