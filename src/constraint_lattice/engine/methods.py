@@ -1,0 +1,17 @@
+METHODS = {
+    "enforce_constraint": False,
+    "filter_constraint": True,
+    "regulate_constraint": True,
+    "restrict_constraint": False,
+    "suppress_constraint": False,
+    "limit_constraint": False,
+    "limit_questions_constraint": False,
+    "enforce_tone_constraint": False,
+    "monitor_constraint": False,
+    "sanitize_constraint": False,
+    "deny_constraint": False,
+    "prevent_constraint": False,
+    "redact_constraint": False,
+    "nullify_constraint": False,
+    "intervene_constraint": False,
+}

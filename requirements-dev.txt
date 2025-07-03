@@ -1,0 +1,15 @@
+pytest>=7.4
+opentelemetry-sdk>=1.25.0
+prometheus-client>=0.20.0
+psycopg2-binary>=2.9.9
+sqlalchemy>=2.0
+hypothesis>=6.99
+fastapi>=0.115
+uvicorn>=0.30
+redis>=5.0
+llama-cpp-python>=0.2.77
+sentence-transformers>=2.7
+kafka-python>=2.0.2
+clickhouse-connect>=0.7
+# Optional: install matching jax & jaxlib wheels for CPU-only testing
+# pip install --upgrade "jax[cpu]"

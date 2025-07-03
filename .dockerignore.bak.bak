@@ -1,0 +1,115 @@
+# 1. Version control
+.git/
+.gitignore
+.hg/
+.svn/
+
+# 2. Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+*.bak
+
+# 3. Node.js (precautionary, not detected but safe)
+node_modules/
+npm-debug.log
+yarn-debug.log
+
+# 4. Go (precautionary)
+/vendor/
+*.test
+.go-cache/
+
+# 5. Java (precautionary)
+target/
+*.class
+.gradle/
+
+# 6. IDE/editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 7. Build outputs and temp files
+dist/
+build/
+out/
+tmp/
+temp/
+*.tmp
+
+# 8. Test files and results
+test/
+tests/
+*.log
+
+# 9. Environment and secrets
+.env*
+*.env
+*.pem
+*.key
+*.crt
+config.local.*
+*.local.yml
+
+# 10. Documentation and markdown
+docs/
+*.md
+README*
+LICENSE*
+LICENSE-*
+
+# 11. Docker and Compose files
+Dockerfile*
+docker-compose*
+
+# 12. Project-specific and local
+.local/
+local/
+
+# 13. Miscellaneous
+*.bak
+*.json
+*.yml
+*.yaml
+*.license
+
+# 14. Hypothesis and cache
+.hypothesis/
+
+# 15. Results and artifacts
+results/
+
+# 16. GitHub workflows (not needed in build context)
+.github/
+
+# 17. WP plugin dev files (for PHP service)
+wp-plugin/constraint-lattice-api/readme.txt
+
+# 18. Keep .gitkeep files out of build context
+*.gitkeep
+
+# 19. Exclude Makefiles (if not needed in build)
+Makefile
+
+# 20. Exclude scripts (if not needed in build)
+scripts/
+tools/
+
+# 21. Exclude test data and fuzzing
+fuzz/
+
+# 22. Exclude cloud and infra configs (if not needed)
+deployment/
+infra/
+
+# 23. Exclude cache directories
+hf-cache/
+
+# 24. Exclude backup files
+*~
+
+# End of .dockerignore

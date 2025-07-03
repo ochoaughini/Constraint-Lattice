@@ -1,0 +1,73 @@
+services:
+  python-root:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: python-root
+    restart: unless-stopped
+    init: true
+    environment:
+      ENABLE_SAAS_FEATURES: "true"
+    # env_file: ./.env  # Uncomment if .env file exists
+    ports:
+      - "8000:8000"  # Exposed by Dockerfile, FastAPI/Gunicorn
+    networks:
+      - backend
+    depends_on:
+      - redis  # Required by saas/redis_client.py
+      - postgres  # Used in deployment/postgres/rls.sql and likely by the app
+
+  php-constraint-lattice-api:
+    build:
+      context: ./wp-plugin/constraint-lattice-api
+      dockerfile: Dockerfile
+    container_name: php-constraint-lattice-api
+    restart: unless-stopped
+    # env_file: ./wp-plugin/constraint-lattice-api/.env  # Uncomment if .env file exists
+    ports:
+      - "8080:80"  # Apache default port
+    networks:
+      - backend
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: unless-stopped
+    networks:
+      - backend
+    # Uncomment the following lines to persist Redis data
+    # volumes:
+    #   - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: clattice
+    networks:
+      - backend
+    # Uncomment the following lines to persist Postgres data
+    # volumes:
+    #   - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  backend:
+    driver: bridge
+
+# Uncomment the following if you want to persist Redis/Postgres data
+#volumes:
+#  redis-data:
+#  postgres-data:
