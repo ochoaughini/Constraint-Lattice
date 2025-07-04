@@ -1,0 +1,4 @@
+# file: /Users/guto.ochoa/Downloads/Constraint-Lattice-main/src/constraint_lattice/engine/audit_sink.py
+# hypothesis_version: 6.135.24
+
+['CLATTICE_PG_DSN', 'first_ts', 'last_ts', 'tenant_id', 'trace_json']

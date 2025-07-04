@@ -1,0 +1,4 @@
+# file: /Users/pitiochuaughini/Downloads/Constraint-Lattice-main/engine/telemetry.py
+# hypothesis_version: 6.135.16
+
+[5000, ',', ':', 'CLATTICE_LOG_LEVEL', 'INFO', 'REGISTRY', 'REQUEST_ERRORS', 'REQUEST_LATENCY_MS', 'constraint-lattice', 'exc_info', 'level', 'logger', 'message', 'msg', 'service.name', 'time', 'ts']

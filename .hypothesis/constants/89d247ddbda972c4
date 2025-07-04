@@ -1,0 +1,4 @@
+# file: /Users/guto.ochoa/Downloads/Constraint-Lattice-main/src/constraint_lattice/constraints/phi2_backend.py
+# hypothesis_version: 6.135.24
+
+[0.3, 0.7, 0.9, 1000.0, 128, 512, 4096, '\n\nJSON:', '\n\nSafe version:', ', ', 'auto', 'bfloat16', 'compile', 'cpu', 'cuda', 'float16', 'float32', 'input_ids', 'jax', 'microsoft/phi-2', 'pt', '{', '}']

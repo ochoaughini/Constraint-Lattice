@@ -1,0 +1,4 @@
+# file: /Users/guto.ochoa/Downloads/Constraint-Lattice-main/pipelines/trace_pipeline.py
+# hypothesis_version: 6.135.24
+
+['CLATTICE_KAFKA_TOPIC', 'audit_traces', 'audit_traces_ch', 'dedupe_hash', 'earliest', 'first_ts', 'last_ts', 'tenant_id', 'trace-sink', 'trace_json', 'utf-8']

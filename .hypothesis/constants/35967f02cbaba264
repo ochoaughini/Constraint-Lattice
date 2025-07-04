@@ -1,0 +1,4 @@
+# file: /Users/pitiochuaughini/Downloads/Constraint-Lattice-main/engine/methods.py
+# hypothesis_version: 6.135.16
+
+['deny_constraint', 'enforce_constraint', 'filter_constraint', 'intervene_constraint', 'limit_constraint', 'monitor_constraint', 'nullify_constraint', 'prevent_constraint', 'redact_constraint', 'regulate_constraint', 'restrict_constraint', 'sanitize_constraint', 'suppress_constraint']

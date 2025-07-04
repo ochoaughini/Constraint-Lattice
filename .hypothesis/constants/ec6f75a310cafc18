@@ -1,0 +1,4 @@
+# file: /Users/guto.ochoa/Documents/Constraint-Lattice-main/src/constraint_lattice/engine/scheduler.py
+# hypothesis_version: 6.135.24
+
+['AuditTrace', '_conflicts_with', '_priority', 'constraint', 'tenant_id']

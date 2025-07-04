@@ -1,0 +1,27 @@
+{
+  "displayName": "Constraint Lattice – Request Latency",
+  "gridLayout": {
+    "columns": 1,
+    "widgets": [
+      {
+        "title": "P95 Latency (ms)",
+        "xyChart": {
+          "dataSets": [
+            {
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "metricType": "custom.googleapis.com/cl_request_latency_ms",
+                  "aggregation": {
+                    "perSeriesAligner": "ALIGN_PERCENTILE_95",
+                    "alignmentPeriod": "60s"
+                  }
+                }
+              }
+            }
+          ],
+          "timeshiftDuration": "0s"
+        }
+      }
+    ]
+  }
+}

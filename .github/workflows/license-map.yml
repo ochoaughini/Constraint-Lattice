@@ -1,0 +1,27 @@
+name: License Map
+
+on:
+  push:
+    paths:
+      - '**/.license'
+      - 'tools/gen_license_map.py'
+  workflow_dispatch:
+
+jobs:
+  build-license-map:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps (none)
+        run: pip install --upgrade pip
+      - name: Generate LICENSE-MAP
+        run: python tools/gen_license_map.py
+      - name: Commit license map if changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: update LICENSE-MAP [CI skip]'
+          file_pattern: 'LICENSE-MAP.md'

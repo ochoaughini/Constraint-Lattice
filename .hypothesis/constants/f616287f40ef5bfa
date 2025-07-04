@@ -1,0 +1,4 @@
+# file: /Users/guto.ochoa/Downloads/Constraint-Lattice-main/scripts/dual_gen_demo.py
+# hypothesis_version: 6.135.24
+
+['--device', '--prompt', '-p', 'Gemma moderated', 'Gemma raw', 'Phi-2 raw', '__main__', 'cpu', 'cuda', 'gemma_moderated', 'gemma_raw', 'generated_text', 'google/gemma-2-2b-it', 'hf-cache', 'inference_mode', 'last_trace', 'microsoft/phi-2', 'no_grad', 'phi2_raw', 'prompt', 'results', 'text-generation', '─']

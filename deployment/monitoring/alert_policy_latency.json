@@ -1,0 +1,23 @@
+{
+  "displayName": "High Request Latency",
+  "combiner": "OR",
+  "conditions": [
+    {
+      "displayName": "P95 > 250ms",
+      "conditionThreshold": {
+        "filter": "metric.type=\"custom.googleapis.com/cl_request_latency_ms\" AND resource.type=\"global\"",
+        "comparison": "COMPARISON_GT",
+        "thresholdValue": 250,
+        "duration": "300s",
+        "aggregations": [
+          {
+            "alignmentPeriod": "60s",
+            "perSeriesAligner": "ALIGN_PERCENTILE_95"
+          }
+        ]
+      }
+    }
+  ],
+  "notificationChannels": ["projects/PROJECT_ID/notificationChannels/CHANNEL_ID"],
+  "enabled": true
+}

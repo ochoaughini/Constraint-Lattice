@@ -1,0 +1,4 @@
+# file: /Users/guto.ochoa/Documents/Constraint-Lattice-main/src/constraint_lattice/engine/apply.py
+# hypothesis_version: 6.135.24
+
+[1000, 'config_hash', 'constraint', 'elapsed_ms', 'embeddings', 'method', 'model_scores', 'post_text', 'pre_text', 'tenant_id', 'timestamp', 'utf-8', 'w']

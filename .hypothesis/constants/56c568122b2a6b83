@@ -1,0 +1,4 @@
+# file: /Users/guto.ochoa/Documents/Constraint-Lattice-main/src/constraint_lattice/constraints/profanity.py
+# hypothesis_version: 6.135.24
+
+[100, ')\\b', '***', '\\b(', 'badword1', 'badword2', 'badword3', '|']

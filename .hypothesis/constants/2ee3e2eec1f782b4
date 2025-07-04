@@ -1,0 +1,4 @@
+# file: /Users/guto.ochoa/Documents/Constraint-Lattice-main/src/constraint_lattice/engine/methods.py
+# hypothesis_version: 6.135.24
+
+['deny_constraint', 'enforce_constraint', 'filter_constraint', 'intervene_constraint', 'limit_constraint', 'monitor_constraint', 'nullify_constraint', 'prevent_constraint', 'process_text', 'process_with_prompt', 'redact_constraint', 'regulate_constraint', 'restrict_constraint', 'sanitize_constraint', 'suppress_constraint']

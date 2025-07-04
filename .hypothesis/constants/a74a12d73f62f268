@@ -1,0 +1,4 @@
+# file: /Users/pitiochuaughini/Downloads/Constraint-Lattice-main/constraints/constraint_profanity_filter.py
+# hypothesis_version: 6.135.16
+
+['***', 'asshole', 'bitch', 'fuck', 'safety', 'shit', '|']

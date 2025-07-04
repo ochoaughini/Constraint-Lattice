@@ -1,0 +1,4 @@
+# file: /Users/guto.ochoa/Downloads/Constraint-Lattice-main/services/phi2_service.py
+# hypothesis_version: 6.135.24
+
+[0.8, 1.0, 1000.0, 2048, '\nResponse:\n', '\nScore:', '<CLS>\nPrompt:\n', 'INFO', 'PHI2_LOG_LEVEL', 'PHI2_MODEL_PATH', 'choices', 'confidence', 'models/phi2.gguf', 'rationale', 'severity', 'text']
