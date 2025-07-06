@@ -20,11 +20,24 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+Subject to the terms and conditions of this License, each contributor hereby 
+grants to you a perpetual, worldwide, non-exclusive, no-charge, royalty-free, 
+irrevocable patent license to make, have made, use, offer to sell, sell, import, 
+and otherwise transfer the Software.
+
 ---------------------------------------------------------------------
 Open-Core Addendum — Constraint-Lattice
 ---------------------------------------------------------------------
 
-Portions of this repository located in `/saas`, `/api`, and `/billing`
-are **not** licensed under the MIT terms above.  Those directories are
-licensed under the Business Source License v1.1 (BSL-1.1).  See
-`saas/LICENSE-BSL.txt` for details.
+The Business Source License (BSL) applies to all production SaaS components 
+including but not limited to: billing integrations, multi-tenant APIs, and 
+user management systems located in `/saas`, `/api`, and `/billing`.
+These components may be used freely for development and testing, but require 
+a commercial license for production use beyond 10,000 monthly active users.
+
+For the avoidance of doubt, the SaaS components are considered part of the 
+Software and are subject to the terms and conditions of this License, 
+including the patent license grant. Any use of the SaaS components beyond 
+the scope of this License requires a separate commercial agreement.
+
+See `saas/LICENSE-BSL.txt` for full BSL-1.1 terms.
