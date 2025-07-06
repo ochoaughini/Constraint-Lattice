@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """Test configuration – ensures project root is on ``sys.path``.
 
 Pytest launches test collection from within the repository root, but IDEs or

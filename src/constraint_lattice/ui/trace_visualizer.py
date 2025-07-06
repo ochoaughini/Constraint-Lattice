@@ -1,19 +1,6 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-import streamlit as st
-from kafka import KafkaConsumer
-import json
-import os
-from datetime import datetime, timedelta
-import pandas as pd
-import plotly.express as px
-from difflib import SequenceMatcher
-import hashlib
-import time
-from kafka.errors import NoBrokersAvailable
-import logging
-from typing import List, Dict
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

@@ -1,8 +1,6 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-"""
-Length Constraint
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
 
 This module contains the LengthConstraint class which enforces a maximum length on text.
 """

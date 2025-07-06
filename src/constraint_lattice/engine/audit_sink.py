@@ -1,7 +1,6 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-"""Postgres sink for `AuditTrace` objects.
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
 
 Optional component: if `psycopg2` (or psycopg) is not installed or
 `CLATTICE_PG_DSN` is unset, `save_trace()` is a no-op and returns False.

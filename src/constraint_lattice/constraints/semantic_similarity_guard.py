@@ -1,7 +1,6 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-"""SemanticSimilarityGuard constraint.
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
 
 Redacts the model output when its cosine similarity to a *reference text* drops
 below a threshold τ (tau).  Implements a pure-Python fallback using *numpy* and

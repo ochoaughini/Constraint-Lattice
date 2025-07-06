@@ -1,8 +1,6 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-"""
-Constraint Application Engine
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
 
 This module contains the core logic for applying constraints to LLM outputs.
 It supports both sequential and batch processing, with dual-mode execution

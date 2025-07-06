@@ -1,7 +1,6 @@
-# SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-"""Ensure core modules work when SaaS features are disabled.
+# SPDX-License-Identifier: BSL-1.1
+# Copyright (c) 2025 Lexsight LCC. All rights reserved.
+# See saas/LICENSE-BSL.txt for full terms.
 
 We run these tests without setting the ENABLE_SAAS_FEATURES env var. Any import
 of the `saas` package should therefore fail, and normal engine functionality

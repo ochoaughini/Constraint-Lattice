@@ -1,8 +1,6 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-import sys
-
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
 
 def configure_logger(name: str) -> logging.Logger:
     """
@@ -14,8 +12,7 @@ def configure_logger(name: str) -> logging.Logger:
     Returns:
         Configured logger instance
     """
-    logger = from constraint_lattice.logging_config import configure_logger
-logger = configure_logger(__name__)(name)
+    logger = logging.getLogger(name)
     if not logger.handlers:
         handler = logging.StreamHandler(sys.stdout)
         formatter = logging.Formatter(

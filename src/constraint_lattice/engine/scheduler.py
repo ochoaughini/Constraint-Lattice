@@ -1,7 +1,6 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-"""Constraint scheduling and metadata utilities.
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
 
 This is a *first-pass* implementation that introduces:
 
@@ -30,8 +29,8 @@ class Constraint(Protocol):
     def enforce_constraint(self, *args, **kwargs) -> Any:  # noqa: D401,E501
         ...
 
-logger = from constraint_lattice.logging_config import configure_logger
-logger = configure_logger(__name__)(__name__)
+from constraint_lattice.logging_config import configure_logger
+logger = configure_logger(__name__)
 
 # ---------------------------------------------------------------------------
 # Decorator helpers

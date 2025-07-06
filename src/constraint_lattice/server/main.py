@@ -1,12 +1,6 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from constraint_lattice.engine.mode import get_execution_mode
-from constraint_lattice.engine.loader import load_constraints_from_file
-import os
-from typing import List, Optional
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
 
 app = FastAPI()
 

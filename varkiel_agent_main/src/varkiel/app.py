@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 from flask import Flask, render_template, request, jsonify, redirect, url_for, Response
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import numpy as np

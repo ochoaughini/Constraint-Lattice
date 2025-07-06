@@ -1,7 +1,6 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-"""Boundary-Prime identity constraint.
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
 
 This lightweight constraint asserts non-personhood in a deterministic,
 transparent way. It uses *jax.numpy* if available so that it can participate

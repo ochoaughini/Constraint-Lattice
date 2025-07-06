@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
+
 """
 Constraint Lattice - Symbolic Reasoning Engine
 
@@ -27,10 +28,9 @@ from .engine import apply_constraints
 from .engine.schema import ConstraintConfig
 from .engine.apply import AuditStep, AuditTrace
 
-from __future__ import annotations
-
 import importlib
 import sys
+import os
 from types import ModuleType
 
 def _alias(top_level_name: str) -> None:
@@ -42,8 +42,11 @@ def _alias(top_level_name: str) -> None:
     sys.modules[f"constraint_lattice.{top_level_name}"] = module
     setattr(sys.modules[__name__], top_level_name, module)
 
-for _m in ("engine", "constraints", "sdk", "saas"):
+for _m in ("engine", "constraints", "sdk"):
     _alias(_m)
+
+if os.getenv("ENABLE_SAAS_FEATURES", "false").lower() in ["true", "1"]:
+    from .saas import *
 
 # Expose a PEP 561 marker so type-checkers know this is a typed pkg in future.
 try:

@@ -1,9 +1,10 @@
-# SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# SPDX-License-Identifier: BSL-1.1
+# Copyright (c) 2025 Lexsight LCC. All rights reserved.
+# See saas/LICENSE-BSL.txt for full terms.
+
 import logging
 import numpy as np
-from wildcore.detector import AutoRegulatedPromptDetector
+# from wildcore.detector import AutoRegulatedPromptDetector
 from varkiel.structural_constraint_engine import StructuralConstraintEngine
 from sentence_transformers import SentenceTransformer
 

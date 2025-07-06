@@ -1,12 +1,7 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-import logging
-import re
-from constraint_lattice.engine.scheduler import constraint
-from typing import List, Optional
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
 
-@constraint(priority=60)  # Higher priority runs first
 class ProfanityFilter:
     """Filter for detecting and replacing profanity in text.
     

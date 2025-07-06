@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """
 Varkiel Agent - Advanced AI Constraint System
 SPDX-License-Identifier: AGPL-3.0-only OR Commercial

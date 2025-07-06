@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 import logging
 from constraint_lattice.constraints.length import LengthConstraint
 from constraint_lattice.constraints.profanity import ProfanityFilter

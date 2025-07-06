@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 #!/usr/bin/env python3
 """Generate an aggregated LICENSE-MAP.md at repository root.
 

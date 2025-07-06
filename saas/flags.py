@@ -1,9 +1,6 @@
 # SPDX-License-Identifier: BSL-1.1
 # Copyright (c) 2025 Lexsight LCC. All rights reserved.
 # See saas/LICENSE-BSL.txt for full terms.
-# Copyright (c) 2025 Lexsight LCC. All rights reserved.
-# See saas/LICENSE-BSL.txt for full terms.
-"""Feature flag helper for SaaS / BSL code.
 
 Importing this module from MIT-licensed packages is safe; it exposes only a
 boolean constant and never pulls additional commercial dependencies.

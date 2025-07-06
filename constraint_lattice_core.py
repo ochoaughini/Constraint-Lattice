@@ -1,10 +1,6 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-class ConstraintLattice:
-    def __init__(self):
-        self.nodes = {}
-        self.constraints = []
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
 
     def add_node(self, node_id, value=None):
         self.nodes[node_id] = value

@@ -1,12 +1,6 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-import json
-import os
-from typing import List, Dict
-from confluent_kafka import Consumer, KafkaException
-import threading
-from queue import Queue
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
 
 
 class AuditDataLoader:

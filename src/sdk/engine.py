@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 from constraint_lattice.engine.apply import apply_constraints
 from constraint_lattice.engine.loader import load_constraints_from_yaml
 from constraint_lattice.engine import Constraint

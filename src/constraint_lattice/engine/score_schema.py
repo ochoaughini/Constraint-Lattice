@@ -1,7 +1,6 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-"""Pydantic schema describing the output of model evaluators.
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
 
 Both PHI-2 and Gemma back-ends should return an instance of
 :class:`ScoreSchema` (or a subclass) so hybrid constraints can make richer

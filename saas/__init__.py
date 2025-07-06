@@ -1,9 +1,6 @@
 # SPDX-License-Identifier: BSL-1.1
 # Copyright (c) 2025 Lexsight LCC. All rights reserved.
 # See saas/LICENSE-BSL.txt for full terms.
-# Copyright (c) 2025 Lexsight LCC. All rights reserved.
-# See saas/LICENSE-BSL.txt for full terms.
-"""SaaS wrapper package for Constraint-Lattice.
 
 This module is only available when the environment variable
 ``ENABLE_SAAS_FEATURES=true`` is present. Attempting to import it without the
@@ -13,7 +10,7 @@ immune from accidental BSL leakage.
 
 import os
 
-if os.getenv("ENABLE_SAAS_FEATURES", "").lower() != "true":
+if not os.getenv("ENABLE_SAAS_FEATURES", "false").lower() in ["true", "1"]:
     raise ImportError(
         "SaaS features are disabled. Set ENABLE_SAAS_FEATURES=true to enable this module."
     )

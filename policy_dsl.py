@@ -1,8 +1,6 @@
-# SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Placeholder for a meta-configuration DSL for constraint logic
-# Example: apply A if B did not mutate, chain X if Y failed, etc.
+# SPDX-License-Identifier: PROPRIETARY
+# Copyright (c) 2025 LXLite LLC. All rights reserved.
+# See LICENSE_PROPRIETARY for full terms.
 
 
 class PolicyNode:

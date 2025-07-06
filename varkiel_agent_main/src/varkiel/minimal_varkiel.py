@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 # Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 from central_controller import CentralController
 from constraint_lattice_adapter import ConstraintLatticeAdapter
 from semantic_resonance import ResonanceFilter as SemanticResonanceEngine

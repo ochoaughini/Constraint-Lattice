@@ -1,11 +1,6 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-"""
-Varkiel Agent - Advanced AI Constraint System
-Copyright (C) 2025 Lexsight LLC
-SPDX-License-Identifier: AGPL-3.0-only OR Commercial
-"""
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
 
 import numpy as np
 import collections  # Added for BFS implementation

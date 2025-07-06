@@ -52,11 +52,10 @@ py-modules = ["cli"]
 
 [tool.setuptools.package-dir]
 "" = "src"
-sdk = "sdk"
 
 [tool.setuptools.packages.find]
-where = ["src", "sdk"]
-exclude = ["clattice"]
+include = ["constraint_lattice*"]
+exclude = ["tests", "tests.*", "examples", "examples.*"]
 
 [tool.black]
 line-length = 88

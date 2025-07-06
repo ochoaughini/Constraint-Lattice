@@ -1,7 +1,6 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-"""Back-end providers for Phi-2 inference.
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
 
 This abstraction lets us swap Hugging Face Transformers (default) for other
 implementations such as **vLLM**.  It keeps `ConstraintPhi2Moderation` focused on

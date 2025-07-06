@@ -1,8 +1,6 @@
-# SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-"""Ensure SaaS package can be imported when the flag is enabled."""
-from __future__ import annotations
+# SPDX-License-Identifier: BSL-1.1
+# Copyright (c) 2025 Lexsight LCC. All rights reserved.
+# See saas/LICENSE-BSL.txt for full terms.
 
 import importlib
 import os

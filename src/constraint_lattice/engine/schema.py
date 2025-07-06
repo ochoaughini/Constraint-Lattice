@@ -1,11 +1,6 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-from pydantic import BaseModel, Field
-from typing import Dict, Any, List, Optional
-from dataclasses import dataclass, field
-from datetime import datetime
-from typing import Optional
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
 
 
 class ConstraintSchema(BaseModel):

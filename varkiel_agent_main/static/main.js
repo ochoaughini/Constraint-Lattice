@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 // Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+// Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 document.addEventListener('DOMContentLoaded', function() {
     const processBtn = document.getElementById('processBtn');
     const inputText = document.getElementById('inputText');

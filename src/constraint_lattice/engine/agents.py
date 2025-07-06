@@ -1,15 +1,10 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
-import re
-import time
-from typing import List, Tuple, Any, Dict
-from .schema import AuditStep, AuditTrace, ConstraintSchema
-from .audit_sink_kafka import get_kafka_sink
+# Copyright (c) 2025 ochoaughini. All rights reserved.
+# See LICENSE for full terms.
 
-logger = from constraint_lattice.logging_config import configure_logger
-logger = configure_logger(__name__)(__name__)
+from constraint_lattice.logging_config import configure_logger
 
+logger = configure_logger(__name__)
 
 class BaseEvaluator:
     """Base class for constraint evaluators"""
