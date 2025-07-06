@@ -2,6 +2,8 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
+"""Constraint scheduling utilities.
+
 This is a *first-pass* implementation that introduces:
 
 1. `constraint` class decorator – attaches scheduling metadata to a

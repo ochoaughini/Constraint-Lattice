@@ -2,8 +2,7 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
-These methods are used by the constraint engine.
-"""
+"""Utility methods used by the constraint engine."""
 from typing import Callable, Dict, Optional, Tuple, Any
 
 

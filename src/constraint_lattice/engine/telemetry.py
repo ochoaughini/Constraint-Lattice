@@ -2,12 +2,14 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
-Importing this module configures:
-1. Structured JSON logging to stdout (Cloud Logging friendly).
-2. OpenTelemetry tracing + metrics if `OTEL_EXPORTER_OTLP_ENDPOINT` is set.
-3. Prometheus metrics registry ready to be mounted at `/metrics` by the API layer.
+"""Configure logging, tracing and metrics utilities.
 
-Safe-to-import even if deps / env vars are missing – it will gracefully no-op.
+Importing this module sets up:
+1. Structured JSON logging to stdout (Cloud Logging friendly).
+2. OpenTelemetry tracing + metrics if ``OTEL_EXPORTER_OTLP_ENDPOINT`` is set.
+3. A Prometheus metrics registry ready to be mounted at ``/metrics`` by the API layer.
+
+Safe-to-import even if deps or environment variables are missing - it will gracefully no-op.
 """
 from __future__ import annotations
 
@@ -29,7 +31,7 @@ _JSON_FIELDS = {
 class _JsonFormatter(logging.Formatter):
     """Minimal JSON formatter suitable for Cloud Logging."""
 
-    def format(self, record: logging.LogRecord) -> str:  # noqa: D401 – override
+    def format(self, record: logging.LogRecord) -> str:  # noqa: D401 - override
         base: dict[str, Any] = {
             _JSON_FIELDS["level"]: record.levelname,
             _JSON_FIELDS["msg"]: record.getMessage(),
@@ -42,7 +44,7 @@ class _JsonFormatter(logging.Formatter):
 
 
 # -----------------------------------------------------------------------------
-# Configure logging – called on import
+# Configure logging - called on import
 # -----------------------------------------------------------------------------
 
 _handler = logging.StreamHandler(stream=sys.stdout)
@@ -106,7 +108,7 @@ try:
         "Number of failed requests",
         registry=REGISTRY,
     )
-except ImportError:  # pragma: no cover – prom optional
+except ImportError:  # pragma: no cover - prom optional
     REGISTRY = None  # type: ignore
 
     class _NoOp:

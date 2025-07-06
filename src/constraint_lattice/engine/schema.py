@@ -2,6 +2,12 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
+from dataclasses import dataclass, field
+from datetime import datetime, timezone
+from typing import Any, Dict, List, Optional
+
+from pydantic import BaseModel, Field
+
 
 class ConstraintSchema(BaseModel):
     """Schema for validating constraints"""
@@ -55,7 +61,7 @@ class AuditStep:
     tenant_id: Optional[str] = None
     model_scores: Dict[str, float] = field(default_factory=dict)
     embeddings: Dict[str, list] = field(default_factory=dict)
-    timestamp: datetime = field(default_factory=lambda: datetime.now(datetime.timezone.utc))
+    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     match_context: Optional[str] = None
     action_applied: Optional[str] = None
     confidence_score: Optional[float] = None

@@ -2,8 +2,9 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
-This module contains the core logic for applying constraints to LLM outputs.
-It supports both sequential and batch processing, with dual-mode execution
+"""Core logic for applying constraints to LLM outputs.
+
+Supports both sequential and batch processing with dual-mode execution
 (supervisory and executor modes) and comprehensive audit tracing.
 
 Author: Constraint Lattice Team
@@ -61,7 +62,7 @@ class AuditStep:
     tenant_id: Optional[str] = None
     model_scores: Dict[str, float] = field(default_factory=dict)
     embeddings: Dict[str, list] = field(default_factory=dict)
-    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime = field(default_factory=datetime.utcnow)
 
     # Lifecycle and core methods
     def to_dict(self):
@@ -124,6 +125,10 @@ def apply_constraints(
     Returns:
         Processed text or tuple (text, audit_trace) if return_audit_trace is True
     """
+    # Support legacy parameter name
+    if "return_trace" in kwargs:
+        return_audit_trace = kwargs.pop("return_trace")
+
     # Determine execution mode
     mode = get_execution_mode()
     

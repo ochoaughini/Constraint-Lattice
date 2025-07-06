@@ -1,29 +1,15 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2025 ochoaughini. All rights reserved.
-# See LICENSE for full terms.
+"""Abstract base class for constraints."""
 
-This module defines the abstract base class for all constraints.
-"""
 from abc import ABC, abstractmethod
 
 
 class Constraint(ABC):
-    """
-    Abstract base class for constraints.
+    """Base class that all constraints must inherit."""
 
-    All constraints must inherit from this class and implement the `process_text` method.
-    """
     priority: int = 50
 
     @abstractmethod
     def process_text(self, text: str) -> str:
-        """
-        Process the input text according to the constraint.
-
-        Args:
-            text: The input text to process
-
-        Returns:
-            The processed text
-        """
+        """Process the input text according to the constraint."""
         pass
