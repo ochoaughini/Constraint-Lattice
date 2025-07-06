@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """
 Detector module containing the AutoRegulatedPromptDetector for anomaly detection.
 """
