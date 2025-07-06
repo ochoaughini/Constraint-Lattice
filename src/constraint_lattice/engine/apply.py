@@ -31,11 +31,8 @@ from constraint_lattice.engine.scheduler import schedule_constraints
 from .agents import Fi2Agent, GemmaAgent
 from .mode import get_execution_mode
 
-# Configure logging
+# Configure module logger
 logger = logging.getLogger(__name__)
-
-# Remove old logging setup
-# logging.basicConfig(level=logging.INFO) - DELETE THIS LINE
 
 @dataclass
 class AuditStep:

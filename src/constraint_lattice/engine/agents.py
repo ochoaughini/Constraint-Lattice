@@ -135,10 +135,6 @@ class SemanticEvaluator(BaseEvaluator):
                 "satisfied": False
             }
 
-
-# TODO: 
-
-
 class BaseAgent:
     """Base class for constraint agents"""
     
