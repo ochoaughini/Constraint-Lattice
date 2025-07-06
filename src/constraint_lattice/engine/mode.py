@@ -2,6 +2,10 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
+from typing import Literal
+import os
+import requests
+
 ExecutionMode = Literal["supervisory", "executor"]
 
 def get_execution_mode() -> ExecutionMode:
@@ -13,7 +17,7 @@ def get_execution_mode() -> ExecutionMode:
     # Check if we have an endpoint configured
     endpoint = os.getenv("LLM_ENDPOINT")
     if not endpoint:
-        return "executor"
+        return "supervisory"
     
     # Ping the endpoint to check availability
     try:

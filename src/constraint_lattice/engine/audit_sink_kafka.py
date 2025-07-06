@@ -2,13 +2,26 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
+import json
+import os
+import uuid
+from datetime import datetime
+from typing import Dict
+
+try:
+    from confluent_kafka import Producer  # type: ignore
+except Exception:  # pragma: no cover - optional dep
+    Producer = None  # type: ignore
+
 
 class KafkaAuditSink:
     """Publishes audit steps to Kafka"""
-    
+
     def __init__(self):
         self.bootstrap_servers = os.getenv("KAFKA_SERVERS", "localhost:9092")
         self.topic = os.getenv("KAFKA_TOPIC", "constraint_audit")
+        if Producer is None:  # pragma: no cover - optional dep
+            raise RuntimeError("confluent_kafka not installed")
         self.producer = Producer({"bootstrap.servers": self.bootstrap_servers})
         
     def publish(self, audit_step: Dict):

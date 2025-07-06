@@ -2,6 +2,11 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
+import logging
+import os
+import sys
+
+
 def configure_logger(name: str) -> logging.Logger:
     """
     Configure and return a logger with standardized formatting.

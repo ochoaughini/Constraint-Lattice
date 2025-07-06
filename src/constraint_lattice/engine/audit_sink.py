@@ -2,21 +2,23 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
-Optional component: if `psycopg2` (or psycopg) is not installed or
-`CLATTICE_PG_DSN` is unset, `save_trace()` is a no-op and returns False.
+"""Optional Postgres/Kafka audit sinks."""
 
-Schema (manual DDL)::
-
-    CREATE TABLE IF NOT EXISTS audit_traces (
-        id           SERIAL PRIMARY KEY,
-        tenant_id    TEXT NOT NULL,
-        created_at   TIMESTAMPTZ DEFAULT now(),
-        trace        JSONB NOT NULL
-    );
-    CREATE INDEX IF NOT EXISTS audit_traces_tenant_created_idx
-        ON audit_traces (tenant_id, created_at DESC);
-"""
 from __future__ import annotations
+
+# If ``psycopg2`` is not installed or ``CLATTICE_PG_DSN`` is unset,
+# ``save_trace`` becomes a no-op.
+
+SCHEMA_DDL = """
+CREATE TABLE IF NOT EXISTS audit_traces (
+    id           SERIAL PRIMARY KEY,
+    tenant_id    TEXT NOT NULL,
+    created_at   TIMESTAMPTZ DEFAULT now(),
+    trace        JSONB NOT NULL
+);
+CREATE INDEX IF NOT EXISTS audit_traces_tenant_created_idx
+    ON audit_traces (tenant_id, created_at DESC);
+"""
 
 import json
 import os
@@ -28,11 +30,21 @@ try:
 except ImportError:  # pragma: no cover – optional dep
     psycopg2 = None
 
-from engine.apply import AuditTrace, AuditStep
+from .schema import AuditStep
 from pipelines.trace_pipeline import publish_trace
 
-logger = from constraint_lattice.logging_config import configure_logger
-logger = configure_logger(__name__)(__name__)
+from constraint_lattice.logging_config import configure_logger
+
+logger = configure_logger(__name__)
+
+
+def get_kafka_sink():
+    """Return Kafka sink if available, else ``None``."""
+    try:
+        from .audit_sink_kafka import get_kafka_sink as _get
+        return _get()
+    except Exception:
+        return None
 
 
 def _get_conn():  # pragma: no cover (needs PG)
@@ -42,7 +54,7 @@ def _get_conn():  # pragma: no cover (needs PG)
     return psycopg2.connect(dsn)
 
 
-def save_trace(trace: AuditTrace, *, tenant_id: str) -> bool:
+def save_trace(trace: Sequence[AuditStep], *, tenant_id: str) -> bool:
     """Persist *trace* to Postgres.
 
     Returns True on success, False otherwise.

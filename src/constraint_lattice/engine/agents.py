@@ -3,6 +3,12 @@
 # See LICENSE for full terms.
 
 from constraint_lattice.logging_config import configure_logger
+from typing import Any, Dict, List, Tuple
+import re
+import time
+
+from .schema import ConstraintSchema, AuditStep
+from .audit_sink import get_kafka_sink
 
 logger = configure_logger(__name__)
 
@@ -128,10 +134,6 @@ class SemanticEvaluator(BaseEvaluator):
                 "score": result['score'],
                 "satisfied": False
             }
-
-
-# TODO: 
-
 
 class BaseAgent:
     """Base class for constraint agents"""
