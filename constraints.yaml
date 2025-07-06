@@ -1,0 +1,12 @@
+profiles:
+  default:
+    - ConstraintBoundaryPrime
+    - ConstraintMirrorLaw
+    - ConstraintResetPulse
+    - ConstraintProfanityFilter
+    - SemanticSimilarityGuard
+    - ConstraintPhi2Moderation
+  regulated:
+    - Safeguard001
+    - StasisCore
+    - ResetPulse

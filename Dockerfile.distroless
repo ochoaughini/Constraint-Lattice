@@ -1,0 +1,45 @@
+# Ultra-slim, distroless image (~40 MB) for Constraint-Lattice SaaS API
+# Final stage has *no* package manager or shell – ideal for Cloud Run.
+
+# --------------------------------------------------------------------
+# Builder stage – install deps into a venv
+# --------------------------------------------------------------------
+FROM python:3.11-slim AS builder
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    VENV_PATH="/opt/venv"
+
+WORKDIR /app
+
+# Copy dependency manifests first for better layer caching
+COPY pyproject.toml requirements-lock.txt ./
+
+RUN python -m venv "$VENV_PATH" \
+    && . "$VENV_PATH/bin/activate" \
+    && pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir -r requirements-lock.txt
+
+# Copy source code & compile pycs (optional)
+COPY . .
+RUN . "$VENV_PATH/bin/activate" && python -m compileall -q .
+
+# --------------------------------------------------------------------
+# Final stage – distroless python runtime
+# --------------------------------------------------------------------
+FROM gcr.io/distroless/python3-debian12:latest
+
+# Ensure venv binaries first in PATH, include src on PYTHONPATH.
+ENV PATH="/opt/venv/bin:$PATH" \
+    PYTHONPATH="/app/src:/app" \
+    ENABLE_SAAS_FEATURES="true"
+
+# Copy virtualenv and application code
+COPY --from=builder /opt/venv /opt/venv
+COPY --from=builder /app /app
+
+WORKDIR /app
+EXPOSE 8000
+
+# Gunicorn binary is inside the venv.
+ENTRYPOINT ["gunicorn","-k","uvicorn.workers.UvicornWorker","-w","4","-b","0.0.0.0:${PORT:-8000}","saas.main:app"]
