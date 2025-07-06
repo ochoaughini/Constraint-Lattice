@@ -13,12 +13,12 @@ Usage::
 from __future__ import annotations
 
 import asyncio
-import logging
 import threading
 from types import TracebackType
 from typing import Any, Optional, Type, TypeVar
 
-logger = logging.getLogger(__name__)
+logger = from constraint_lattice.logging_config import configure_logger
+logger = configure_logger(__name__)(__name__)
 _T = TypeVar("_T")
 
 # ---------------------------------------------------------------------------

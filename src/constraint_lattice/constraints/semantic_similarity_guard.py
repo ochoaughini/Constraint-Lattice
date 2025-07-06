@@ -13,7 +13,6 @@ or to prevent topic drift in multi-turn conversations.
 from __future__ import annotations
 
 import math
-import logging
 import re
 from collections import Counter
 from typing import List
@@ -27,7 +26,8 @@ except ModuleNotFoundError:  # pragma: no cover – CI may not have JAX
 
 from engine.scheduler import constraint
 
-logger = logging.getLogger(__name__)
+logger = from constraint_lattice.logging_config import configure_logger
+logger = configure_logger(__name__)(__name__)
 
 _WORD_RE = re.compile(r"[A-Za-z']+")
 

@@ -1,26 +1,22 @@
-"""ConstraintPhi2Moderation
-=================================
-Advanced content-moderation constraint built on Microsoft’s Phi-2 (2.7 B) SLM.
+"""
+Phi-2 Moderation Constraint
 
-Key features
-------------
-*   **Few-shot safety analysis** – categorises content into violence, hate-speech, etc.
-*   **Configurable thresholds**   – per-category risk cut-offs.
-*   **Fallback strategies**       – ``block`` | ``mask`` | ``regenerate``.
-*   **Optional 4-bit quantisation** for ~60 % lower VRAM via bits-and-bytes.
-*   **LRU result cache** to avoid repeat inference.
+This constraint uses Microsoft's Phi-2 SLM for content moderation.
+It categorizes content into predefined safety categories and applies
+configurable thresholds to determine appropriate actions.
 
-The class exposes a single public call‐signature that matches Constraint
-Lattice’s pipeline:
-
->>> constraint = ConstraintPhi2Moderation()
->>> safe_text  = constraint(prompt, raw_output)
+Author: Constraint Lattice Team
+Last Updated: 2025-07-04
 """
 
 from __future__ import annotations
 
+import contextlib
 import json
-import logging
+import os
+from collections import deque
+from datetime import datetime
+from typing import Any, Optional
 
 try:
     from prometheus_client import Counter, Histogram
@@ -44,46 +40,32 @@ except ImportError:  # pragma: no cover
             return _NoopCtx()
 
     Counter = Histogram = _NoMetrics  # type: ignore
-import contextlib
-import os
-from collections import deque
-from datetime import datetime
-from typing import Any
 
 try:
     import torch  # type: ignore
 except ModuleNotFoundError:  # pragma: no cover
-    # Lightweight stub so the module can still be imported (e.g. in CI)
-    import sys
-    import types
-
-    torch = types.ModuleType("torch")  # type: ignore
-    torch.cuda = types.ModuleType("cuda")  # type: ignore
-    torch.cuda.is_available = lambda: False  # type: ignore
-    torch.float16 = "float16"  # type: ignore
-    torch.float32 = "float32"  # type: ignore
-    sys.modules["torch"] = torch
-    sys.modules["torch.cuda"] = torch.cuda
+    torch = None  # type: ignore
 
 try:
     from transformers import (
         AutoModelForCausalLM,
         AutoTokenizer,
         BitsAndBytesConfig,
+        pipeline,
     )
+    from transformers.pipelines import Conversation, Pipeline, pipeline as pl
+
 except ModuleNotFoundError:  # pragma: no cover
-    # Provide minimal stubs so import continues without transformers.
-    import sys
-    import types
+    AutoModelForCausalLM = None
+    AutoTokenizer = None
+    BitsAndBytesConfig = None
+    pipeline = None
+    Pipeline = None
+    pl = None
+    Conversation = None
 
-    _tf_stub = types.ModuleType("transformers")
-    AutoModelForCausalLM = AutoTokenizer = BitsAndBytesConfig = object  # type: ignore
-    sys.modules["transformers"] = _tf_stub
-    _tf_stub.AutoModelForCausalLM = AutoModelForCausalLM  # type: ignore
-    _tf_stub.AutoTokenizer = AutoTokenizer  # type: ignore
-    _tf_stub.BitsAndBytesConfig = BitsAndBytesConfig  # type: ignore
-
-logger = logging.getLogger(__name__)
+logger = from constraint_lattice.logging_config import configure_logger
+logger = configure_logger(__name__)(__name__)
 
 _REQUESTS = Counter("phi2_requests_total", "Total moderation calls")
 _CACHE_HITS = Counter("phi2_cache_hits_total", "Cache hits")
@@ -97,14 +79,15 @@ logger.setLevel(os.environ.get("CLATTICE_LOG_LEVEL", "INFO"))
 # --------------------------- helper utilities ---------------------------- #
 
 
-from typing import Optional
-
-
 def _maybe_quant_config(enable: bool) -> Optional[BitsAndBytesConfig]:
     """Return a 4-bit quantisation config if *enable* & cuda available."""
     if not enable or not torch.cuda.is_available():
         return None
-    return BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_compute_dtype=torch.float16)
+    return BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_compute_dtype=torch.float16,
+        bnb_4bit_quant_type="nf4",
+    )
 
 
 # ------------------------- main constraint class ------------------------ #

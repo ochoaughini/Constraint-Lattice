@@ -1,0 +1,41 @@
+name: Varkiel CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.13
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.13'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install sphinx
+    - name: Run tests
+      run: |
+        pytest --cov=./ --cov-report=xml
+    - name: Build documentation
+      run: |
+        sphinx-apidoc -o docs/source .
+        make -C docs html
+    - name: Upload coverage
+      uses: codecov/codecov-action@v3
+    - name: Security scan
+      run: |
+        pip install safety
+        safety check
+    - name: Performance benchmark
+      run: |
+        python benchmark.py
+    - name: Deploy to Heroku
+      if: success() && github.ref == 'refs/heads/main'
+      uses: akhileshns/heroku-deploy@v3.12.12
+      with:
+        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+        heroku_app_name: "varkiel-agent"
+        heroku_email: "guto.ochoa@example.com"

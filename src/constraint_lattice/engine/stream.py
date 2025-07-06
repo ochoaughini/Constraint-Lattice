@@ -13,13 +13,13 @@ from __future__ import annotations
 
 import asyncio
 import os
-import logging
 from typing import AsyncIterator, Tuple
 
 from engine.apply import apply_constraints
 from engine.policy_loader import load_constraints
 
-logger = logging.getLogger(__name__)
+logger = from constraint_lattice.logging_config import configure_logger
+logger = configure_logger(__name__)(__name__)
 
 _DEFAULT_QSIZE = int(os.getenv("CLATTICE_STREAM_QUEUE", "32"))
 

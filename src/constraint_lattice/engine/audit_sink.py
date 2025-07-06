@@ -17,7 +17,6 @@ Schema (manual DDL)::
 from __future__ import annotations
 
 import json
-import logging
 import os
 from typing import Sequence
 
@@ -30,7 +29,8 @@ except ImportError:  # pragma: no cover – optional dep
 from engine.apply import AuditTrace, AuditStep
 from pipelines.trace_pipeline import publish_trace
 
-logger = logging.getLogger(__name__)
+logger = from constraint_lattice.logging_config import configure_logger
+logger = configure_logger(__name__)(__name__)
 
 
 def _get_conn():  # pragma: no cover (needs PG)

@@ -1,31 +1,66 @@
 # Constraint Lattice
 
+[![CI/CD](https://github.com/ochoaughini/Constraint-Lattice/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/ochoaughini/Constraint-Lattice/actions/workflows/docker-publish.yml)
+
 Deterministic, auditable post-processing governance framework for Large Language Model (LLM) outputs.
 
-Constraint Lattice lets you **compose pluggable constraints** that rewrite, redact, or regenerate model output until it satisfies your policy. Each execution is fully auditable and can be replayed bit-for-bit—all without retraining the model.
+Constraint Lattice enables **composable constraints** that rewrite, redact, or regenerate model outputs until they satisfy your policy requirements. All executions are fully auditable and reproducible without model retraining.
 
 ## Features
-- Declarative YAML pipelines driving pure-Python `Constraint` classes
-- Multiple integration options: CLI (`cl-apply`), Python SDK, FastAPI micro-service, Streamlit audit viewer, WordPress plugin, and SaaS starter kit
-- Deterministic execution with JSONL audit logs suitable for governance and red-team review
-- Optional GPU-accelerated moderation via vLLM or JAX
-- Prometheus metrics and Stripe billing hooks for production SaaS deployments
 
-## Install
+- **Declarative Pipelines**: YAML-driven configuration for pure-Python `Constraint` classes
+- **Multi-Platform Support**: CLI (`cl-apply`), Python SDK, FastAPI microservice, Streamlit audit viewer
+- **Deterministic Execution**: JSONL audit logs for governance and compliance
+- **GPU Acceleration**: Optional vLLM/JAX backend for high-performance moderation
+- **Production Ready**: Prometheus metrics and Stripe billing integration
 
-```bash
-pip install constraint-lattice           # Core framework
-pip install "constraint-lattice[perf]"   # +Prometheus & vLLM
-pip install "constraint-lattice[api]"    # +FastAPI micro-service
-```
+## Installation
 
-Or clone the repo for development:
+### Local Development
 
 ```bash
 git clone https://github.com/ochoaughini/Constraint-Lattice.git
 cd Constraint-Lattice
-pip install -e .[dev]    # Lint, type-check, tests
+
+# Install with pip
+pip install -e .[dev]  # Development mode (includes linting/tests)
+pip install constraint-lattice     # Core framework only
+pip install "constraint-lattice[perf]"  # +Performance extensions
 ```
+
+### Docker
+
+```bash
+docker build -t constraint-lattice .
+docker run -p 8000:8000 constraint-lattice
+```
+
+### Cloud Deployment
+See our [deployment guide](docs/hybrid_deployment_strategy.md) for GCP/AWS configurations.
+
+## Basic Usage
+
+```python
+from constraint_lattice import apply_constraints
+
+result = apply_constraints(
+    text="Your LLM output here",
+    policy_path="path/to/policy.yaml"
+)
+print(result.filtered_text)
+```
+
+## Documentation
+- [Core Concepts](docs/principles.md)
+- [API Reference](docs/api.md)
+- [Tutorial](docs/tutorial.md)
+- [Deployment Strategies](docs/hybrid_deployment_strategy.md)
+
+## Contributing
+We welcome contributions! Please see our [Contribution Guidelines](CONTRIBUTING.md).
+
+## License
+Constraint Lattice is released under the [MIT License](LICENSE).
 
 ## Quick Start (Python)
 
@@ -63,6 +98,22 @@ streamlit run ui/audit_viewer.py
 ```
 
 Upload any JSONL audit log to explore step-by-step constraint actions.
+
+## Kafka Integration
+Constraint Lattice uses Kafka for real-time trace streaming. To set up Kafka locally:
+
+```bash
+docker-compose -f docker-compose.yml up -d kafka
+```
+
+## Trace Visualizer
+Explore constraint execution traces in real-time:
+
+```bash
+streamlit run src/constraint_lattice/ui/trace_visualizer.py --server.port=8502
+```
+
+Access the visualizer at: http://localhost:8502
 
 ## Configuration
 
@@ -109,16 +160,6 @@ pytest -q
 ruff check .
 mypy .
 ```
-
-## Documentation
-
-- [Tutorial](docs/tutorial.md)
-- [Principles and Theory](docs/principles.md)
-- [Formal Language Approach](docs/formal_language_approach.md)
-- [Hybrid Deployment Strategy](docs/hybrid_deployment_strategy.md)
-- [Phi-2 Integration Proposal](docs/phi2_integration_proposal.md)
-- [Example: Transformers Gemma](docs/transformers_gemma_example.md)
-
 
 ## Contributing
 

@@ -1,0 +1,44 @@
+[project]
+name = "varkiel"
+version = "1.0.0"
+description = "Advanced AI Constraint System"
+authors = [
+    {name = "Lexsight LLC", email = "contact@lexsight.ai"}
+]
+license = {text = "AGPL-3.0-only OR Commercial"}
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.21.0",
+    "scipy>=1.7.0",
+    "requests>=2.26.0",
+    "tenacity>=8.0.0",
+    "pydantic>=1.9.0",
+    "sentence-transformers>=2.2.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "flake8>=4.0.0",
+    "mypy>=0.910",
+    "pytest-cov>=3.0.0"
+]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["varkiel"]
+package-dir = { "varkiel" = "src/varkiel" }
+
+[tool.semantic_release]
+version_source = "tag"
+
+[tool.pytest.ini_options]
+testpaths = ["src/varkiel/tests"]
+addopts = "--cov=src/varkiel --cov-report=term-missing"
+
+[tool.flake8]
+max-line-length = 120
+exclude = ["__pycache__", ".git", ".venv"]

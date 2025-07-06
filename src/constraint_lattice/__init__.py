@@ -1,23 +1,34 @@
-"""Constraint Lattice governance kernel (src layout shim).
-
-This transitional __init__ keeps import compatibility while code is being migrated
-from the legacy flat layout into the canonical ``constraint_lattice`` package
-under ``src/``.  It simply re-exports the existing top-level packages (``engine``,
-``constraints`` …) so both of these work:
-
-    import engine  # legacy
-    from constraint_lattice import engine  # new
-
-Once all modules have been physically moved, these shims can be removed.
 """
+Constraint Lattice - Symbolic Reasoning Engine
+
+Top-level package for constraint-based AI systems.
+"""
+
+__all__ = [
+    # Core engine components
+    'apply_constraints',
+    'ConstraintConfig',
+    
+    # Important classes
+    'AuditStep',
+    'AuditTrace',
+    
+    # Submodules
+    'engine',
+    'constraints',
+    'services'
+]
+
+# Public API imports
+from .engine import apply_constraints
+from .engine.schema import ConstraintConfig
+from .engine.apply import AuditStep, AuditTrace
+
 from __future__ import annotations
 
 import importlib
 import sys
 from types import ModuleType
-
-__all__: list[str] = []
-
 
 def _alias(top_level_name: str) -> None:
     """Import *top_level_name* and alias it under constraint_lattice.*."""
@@ -27,8 +38,6 @@ def _alias(top_level_name: str) -> None:
         return
     sys.modules[f"constraint_lattice.{top_level_name}"] = module
     setattr(sys.modules[__name__], top_level_name, module)
-    __all__.append(top_level_name)
-
 
 for _m in ("engine", "constraints", "sdk", "saas"):
     _alias(_m)

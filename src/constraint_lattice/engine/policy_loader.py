@@ -19,7 +19,6 @@ If a listed constraint cannot be imported we log a warning and skip it.
 from __future__ import annotations
 
 import importlib
-import logging
 from pathlib import Path
 from typing import List, Sequence, Type
 
@@ -27,7 +26,8 @@ import yaml  # type: ignore
 
 from engine.scheduler import Constraint  # re-export for type hints
 
-logger = logging.getLogger(__name__)
+logger = from constraint_lattice.logging_config import configure_logger
+logger = configure_logger(__name__)(__name__)
 
 _DEFAULT_PATH = Path(__file__).resolve().parent.parent / "policies/constraints.yaml"
 

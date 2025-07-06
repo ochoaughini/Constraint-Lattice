@@ -10,7 +10,6 @@ Safe-to-import even if deps / env vars are missing – it will gracefully no-op.
 from __future__ import annotations
 
 import json
-import logging
 import os
 import sys
 from datetime import datetime, timezone
@@ -45,9 +44,9 @@ class _JsonFormatter(logging.Formatter):
 
 _handler = logging.StreamHandler(stream=sys.stdout)
 _handler.setFormatter(_JsonFormatter())
-logging.basicConfig(level=os.getenv("CLATTICE_LOG_LEVEL", "INFO"), handlers=[_handler])
 
-logger = logging.getLogger(__name__)
+logger = from constraint_lattice.logging_config import configure_logger
+logger = configure_logger(__name__)(__name__)
 logger.debug("Structured logging configured.")
 
 # -----------------------------------------------------------------------------

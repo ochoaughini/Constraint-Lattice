@@ -7,7 +7,6 @@ injection at runtime.
 """
 from __future__ import annotations
 
-import logging
 from typing import Any, Dict, Optional
 
 from engine.score_schema import ScoreSchema
@@ -23,7 +22,8 @@ try:
 except Exception:  # pragma: no cover
     _gemma_classify = None  # type: ignore
 
-logger = logging.getLogger(__name__)
+logger = from constraint_lattice.logging_config import configure_logger
+logger = configure_logger(__name__)(__name__)
 
 __all__ = [
     "ModelEvaluator",

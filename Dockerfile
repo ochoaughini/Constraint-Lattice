@@ -1,6 +1,13 @@
 # syntax=docker/dockerfile:1
 
-FROM python:3.11-slim AS base
+# Specify the platform explicitly
+ARG TARGETPLATFORM
+FROM --platform=$TARGETPLATFORM python:3.9-slim AS base
+
+# Print build information for debugging
+RUN echo "Building for platform: $TARGETPLATFORM" && \
+    uname -a && \
+    dpkg --print-architecture
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
@@ -12,13 +19,12 @@ WORKDIR /app
 FROM base AS builder
 
 # Copy only dependency files first for better cache usage
-COPY pyproject.toml ./
-COPY requirements-lock.txt ./
+COPY requirements.txt ./
 
 # Create venv and install dependencies (core + web server)
 RUN --mount=type=cache,target=$PIP_CACHE_DIR \
     python -m venv .venv && \
-    .venv/bin/pip install -r requirements-lock.txt gunicorn uvicorn[standard]
+    .venv/bin/pip install --no-cache-dir -r requirements.txt fastapi uvicorn requests streamlit
 
 # --- Final stage: copy app code and venv, set up non-root user ---
 FROM base AS final
@@ -41,14 +47,14 @@ ENV PATH="/app/.venv/bin:$PATH"
 # Include project src directory so "import constraint_lattice" works at runtime
 ENV PYTHONPATH=/app/src:/app
 
-# Expose the default port
-# Cloud Run sets $PORT (default 8080). For local compose we still map 8000:8000.
-EXPOSE 8080
+# Expose ports
+EXPOSE 8501
+EXPOSE 8000
 
 # Container health check
-HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 CMD /bin/sh -c 'curl -f http://localhost:${PORT:-8080}/health || exit 1'
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 CMD /bin/sh -c 'curl -f http://localhost:${PORT:-8000}/health || exit 1'
 
 USER appuser
 
-# Start FastAPI via Gunicorn with 4 Uvicorn workers, using $PORT if set (Cloud Run convention)
-CMD ["sh", "-c", "exec gunicorn -k uvicorn.workers.UvicornWorker -w 4 -b 0.0.0.0:${PORT:-8000} saas.main:app"]
+# Start services
+CMD ["sh", "-c", "streamlit run ui/audit_viewer.py --server.port=8501 & uvicorn api.main:app --host 0.0.0.0 --port 8000"]

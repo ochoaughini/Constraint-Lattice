@@ -77,6 +77,22 @@ poetry run python scripts/dual_gen_demo.py --prompt "Explain the Doppler effect"
 | Gemma moderated | *…*  |
 | Phi-2 raw       | *…*  |
 
+## Kafka Setup
+For real-time trace streaming, set up Kafka:
+
+```bash
+docker-compose -f docker-compose.yml up -d kafka
+```
+
+## Trace Visualization
+Run the trace visualizer to monitor constraint executions:
+
+```bash
+streamlit run src/constraint_lattice/ui/trace_visualizer.py --server.port=8502
+```
+
+This will start a web UI at http://localhost:8502 where you can explore constraint execution traces.
+
 ## Day-to-Day Workflow
 
 ---
@@ -84,4 +100,3 @@ poetry run python scripts/dual_gen_demo.py --prompt "Explain the Doppler effect"
 *Last updated: 2025-06-29*
 
 To work with Constraint-Lattice day to day, first clone the repository and, inside the project root, optionally create and activate a virtual environment, then run `pip install -r requirements-lock.txt` (or `pip install -e .`) to install the dependencies. You can immediately apply constraints from the command line with `python -m engine.apply --model meta-llama/Llama-3-8b-instruct --prompt "Tell me a joke with no profanity" --constraints constraints.yaml`; this streams model output while enforcing the rules defined by the Python classes in `constraints/` and listed in `constraints.yaml`. For programmatic use, import `constraint_lattice.sdk.engine as cl`, load a model with `cl.load(model_name="meta-llama/Llama-3-8b-instruct", constraints_yaml="constraints.yaml")`, call `generate`, and read `response.text`. Ready-made demos—`scripts/dual_gen_demo.py`, `scripts/gemma_demo.py`, and `scripts/bench_phi2.py`—let you compare guardrailed vs. vanilla generation, explore Gemma/Gemini integration, or benchmark Phi-2. When adding or tuning constraints, remember that each lives in its own small Python file with a `check()` method; edit the YAML list to change order or selection, then simply rerun your script—no build step is required. Run `pytest tests/` to execute unit, smoke, and end-to-end suites whenever you touch constraints or upgrade `transformers`. Generation logs are saved as JSONL files under `results/`; inspect them with the lightweight Streamlit viewer in `ui/audit_viewer.py`. A typical daily loop is pull the latest changes, optionally refresh models in the Hugging Face cache via `scripts/prefetch.py`, edit or add constraints, run the test suite, generate text, and review the audits. In editors like VS Code or PyCharm, keep the repo root on your Python path (e.g., by activating `.venv`) so `import constraint_lattice` resolves instantly. With those steps you can clone, install, test, demo, and iterate on Constraint-Lattice seamlessly.
-

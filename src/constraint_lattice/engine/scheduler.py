@@ -26,9 +26,9 @@ class Constraint(Protocol):
 
     def enforce_constraint(self, *args, **kwargs) -> Any:  # noqa: D401,E501
         ...
-import logging
 
-logger = logging.getLogger(__name__)
+logger = from constraint_lattice.logging_config import configure_logger
+logger = configure_logger(__name__)(__name__)
 
 # ---------------------------------------------------------------------------
 # Decorator helpers
