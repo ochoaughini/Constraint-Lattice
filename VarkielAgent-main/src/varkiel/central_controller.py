@@ -13,6 +13,12 @@ from typing import Dict, Any, List, Optional
 from dataclasses import dataclass
 from varkiel.state_vector import StateVector
 from varkiel.exceptions import GovernanceError, SafetyViolationError
+from wildcore.detector import AutoRegulatedPromptDetector
+from sentence_transformers import SentenceTransformer
+from varkiel.policy_dsl import PolicyEngine
+from varkiel.coherence import RecursiveInvarianceMonitor
+import numpy as np
+import pickle
 
 @dataclass
 class ProcessingResult:
@@ -26,7 +32,10 @@ class CentralController:
     def __init__(self, config: Dict[str, Any]):
         self.config = config
         self.logger = logging.getLogger(__name__)
+        self.reference_embeddings = self._load_reference_embeddings()
         self._init_components()
+        self.policy_engine = PolicyEngine()
+        self.coherence_monitor = RecursiveInvarianceMonitor()
         
     def _init_components(self):
         """Initialize all processing components"""
@@ -50,7 +59,24 @@ class CentralController:
                 self.config['lattice']['endpoint'],
                 self.config['lattice']['api_key']
             )
-
+        
+        # Initialize WildCore components
+        self.wildcore_detector = AutoRegulatedPromptDetector(
+            reference_embeddings=self.reference_embeddings,
+            threshold=self.config['wildcore']['threshold']
+        )
+        self.embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
+        
+    def _load_reference_embeddings(self) -> List[np.ndarray]:
+        """Load reference embeddings from file"""
+        embeddings_path = self.config['wildcore']['embeddings_path']
+        try:
+            with open(embeddings_path, 'rb') as f:
+                return pickle.load(f)
+        except FileNotFoundError:
+            self.logger.warning(f"Embeddings file not found at {embeddings_path}")
+            return []
+        
     def process(self, input_text: str) -> ProcessingResult:
         """Full processing pipeline with timing and error handling"""
         start_time = time.time()
@@ -69,6 +95,14 @@ class CentralController:
                 violation_details = self.components['risk'].get_violation_details(state)
                 raise SafetyViolationError("Output failed safety checks", details=violation_details)
                 
+            # Evaluate policies
+            policy_result = self.policy_engine.evaluate(state)
+            if policy_result.violations:
+                state.warnings.append(f"Policy violations: {policy_result.violations}")
+                
+            # Apply coherence monitoring
+            state = self._apply_coherence_monitoring(state)
+            
             return ProcessingResult(
                 output=state.text,
                 metrics=state.metrics,
@@ -96,7 +130,8 @@ class CentralController:
         processing_order = [
             ('structural', self.components['structural'].apply_constraints),
             ('symbolic', self.components['symbolic'].process),
-            ('phenomenological', self.components['phenomenological'].track_state)
+            ('phenomenological', self.components['phenomenological'].track_state),
+            ('wildcore', self._apply_wildcore_detection)  # New step for WildCore
         ]
         
         for stage_name, processor in processing_order:
@@ -109,6 +144,32 @@ class CentralController:
                 state.warnings.append(f"{stage_name} processing failed")
                 raise
                 
+        return state
+        
+    def _apply_wildcore_detection(self, state: StateVector) -> StateVector:
+        """Apply WildCore anomaly detection"""
+        try:
+            # Generate embedding for the current state text
+            embedding = self.embedding_model.encode(state.text)
+            # TODO: Load reference embeddings from config or a file
+            result = self.wildcore_detector.ensemble_detection(embedding)
+            if result['is_anomalous']:
+                state.warnings.append(f"WildCore anomaly detected: {result.get('methods_triggered', [])}")
+                state.metrics['wildcore_anomaly'] = True
+            else:
+                state.metrics['wildcore_anomaly'] = False
+        except Exception as e:
+            self.logger.error(f"WildCore detection failed: {str(e)}")
+            state.warnings.append("WildCore detection failed")
+        return state
+
+    def _apply_coherence_monitoring(self, state: StateVector) -> StateVector:
+        """Apply recursive invariance monitoring for semantic coherence"""
+        try:
+            state = self.coherence_monitor.monitor(state)
+        except Exception as e:
+            self.logger.error(f"Coherence monitoring failed: {e}")
+            state.add_warning("Coherence monitoring failed")
         return state
 
     def _apply_governance(self, state: StateVector) -> StateVector:

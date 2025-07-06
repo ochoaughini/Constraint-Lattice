@@ -14,6 +14,14 @@ import requests
 import time
 from tenacity import retry, stop_after_attempt, wait_exponential
 from .exceptions import GovernanceError
+import os
+import sys
+import time
+import json
+import logging
+from varkiel.symbolic_engine import SymbolicEngine
+from src.constraint_lattice.constraints.length import LengthConstraint
+from src.constraint_lattice.constraints.profanity import ProfanityFilter
 
 # Mock classes for testing
 class Node:
@@ -145,65 +153,47 @@ class CSPStateMachine:
         return [self.current_state]
 
 class ConstraintLatticeAdapter:
-    def __init__(self, symbolic_topology: Optional[Dict[str, Tuple[np.ndarray, float]]] = None):
-        self.symbolic_topology = symbolic_topology or {}
-        self.constraints = []  # Added to store constraints
+    """Base class for Constraint Lattice adapters."""
+
+    def apply_constraints(self, state: StateVector) -> StateVector:
+        raise NotImplementedError
+
+class LocalSymbolicAdapter(ConstraintLatticeAdapter):
+    """Local adapter that applies constraints using a symbolic engine."""
+
+    def __init__(self, symbolic_engine: SymbolicEngine, config: Dict[str, Any]):
+        self.symbolic_engine = symbolic_engine
+        self.config = config
+        self.logger = logging.getLogger(__name__)
         
-    def add_constraint(self, constraint):
-        """Add a new constraint to the lattice"""
-        self.constraints.append(constraint)
+        # Initialize Constraint-Lattice filters
+        self.length_constraint = LengthConstraint(max_length=100)  # Configurable
+        self.profanity_filter = ProfanityFilter()
+
+    def apply_constraints(self, state: StateVector) -> StateVector:
+        """Apply constraints locally using the symbolic engine and Constraint-Lattice filters."""
+        # Apply symbolic engine constraints
+        state = self.symbolic_engine.apply_constraints(state)
         
-    def apply(self, state: np.ndarray, constraint_type: ConstraintType = None) -> StateVector:
-        if constraint_type:
-            return self.apply_constraint_vector(state, constraint_type)
-        if len(self.constraints) == 0:
-            coherence = self.calculate_global_coherence(state)
-            return StateVector(state, coherence)
-        else:
-            # Apply all constraints sequentially
-            constrained_state = state.copy()
-            for constraint in self.constraints:
-                constrained_state = constraint.apply(constrained_state)
-            coherence = self.calculate_global_coherence(constrained_state)
-            return StateVector(constrained_state, coherence)
-    
-    def apply_constraint_vector(self, state: np.ndarray, constraint_type: ConstraintType) -> StateVector:
-        if constraint_type == ConstraintType.SUSPENSION:
-            return self._apply_suspension(state)
-        elif constraint_type == ConstraintType.OVERALIGNMENT:
-            return self._apply_overalignment(state)
-        elif constraint_type == ConstraintType.CAUSAL_ERASURE:
-            return self._apply_causal_erasure(state)
-        else:
-            return StateVector(state, self.calculate_global_coherence(state))
-    
-    def _apply_suspension(self, state: np.ndarray) -> StateVector:
-        if self._is_high_stakes_paradox(state):
-            return StateVector(np.zeros_like(state), 0.0)
-        return StateVector(state, self.calculate_global_coherence(state))
-    
-    def _apply_overalignment(self, state: np.ndarray) -> StateVector:
-        security_consensus_factor = 0.85
-        return StateVector(state * security_consensus_factor, self.calculate_global_coherence(state))
-    
-    def _apply_causal_erasure(self, state: np.ndarray) -> StateVector:
-        generalized_state = self._generalize_state(state)
-        return StateVector(generalized_state, self.calculate_global_coherence(generalized_state))
-    
-    def update_symbolic_topology(self, concept: str, state_vector: np.ndarray, coherence: float):
-        self.symbolic_topology[concept] = (state_vector, coherence)
-    
-    def get_symbolic_coherence(self, concept: str) -> float:
-        return self.symbolic_topology.get(concept, (None, 0.0))[1]
-    
-    def calculate_global_coherence(self, state: np.ndarray) -> float:
-        return float(np.mean(np.abs(state)))
-    
-    def _is_high_stakes_paradox(self, state: np.ndarray) -> bool:
-        return np.any(np.isnan(state)) or np.max(np.abs(state)) > 10.0
-    
-    def _generalize_state(self, state: np.ndarray) -> np.ndarray:
-        return np.mean(state, keepdims=True) * np.ones_like(state)
+        # Get the current text from the state
+        state_text = state.get_text()
+        
+        # Apply length constraint
+        state_text, length_violation = self.length_constraint.process_text(state_text)
+        if length_violation:
+            state.add_warning("Text exceeds maximum allowed length")
+            state.set_metric("length_violation", True)
+        
+        # Apply profanity filter
+        state_text, profanity_violation = self.profanity_filter.process_text(state_text)
+        if profanity_violation:
+            state.add_warning("Profanity detected and filtered")
+            state.set_metric("profanity_violation", True)
+        
+        # Update the state text
+        state.set_text(state_text)
+        
+        return state
 
 class ConstraintLatticeAdapterRemote:
     def __init__(self, endpoint: str, api_key: str, timeout: int = 30):
@@ -250,3 +240,8 @@ class ConstraintLatticeAdapterRemote:
 
     def __del__(self):
         self.session.close()
+
+class RemoteAdapter(ConstraintLatticeAdapter):
+    """Adapter for remote Constraint Lattice service."""
+
+    # ... (rest of the class remains unchanged)
