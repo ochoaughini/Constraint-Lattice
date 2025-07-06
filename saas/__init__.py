@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: BSL-1.1
+# Copyright (c) 2025 Lexsight LCC. All rights reserved.
+# See saas/LICENSE-BSL.txt for full terms.
+# Copyright (c) 2025 Lexsight LCC. All rights reserved.
+# See saas/LICENSE-BSL.txt for full terms.
 """SaaS wrapper package for Constraint-Lattice.
 
 This module is only available when the environment variable

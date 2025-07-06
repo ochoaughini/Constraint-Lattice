@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """Helper to download Gemma-2B-IT and Phi-2 weights into hf-cache/.
 Run once then set HF_HUB_OFFLINE=1 to force offline mode.
 """

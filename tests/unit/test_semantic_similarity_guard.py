@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """Tests for SemanticSimilarityGuard."""
 from constraint_lattice.constraints.semantic_similarity_guard import (
     SemanticSimilarityGuard,

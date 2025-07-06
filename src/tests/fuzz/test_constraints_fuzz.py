@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """Hypothesis fuzz tests to ensure constraints never break UTF-8 invariants.
 
 For each registered constraint class we generate random Unicode input and

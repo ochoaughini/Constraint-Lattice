@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """Mirror-Law ontological mask constraint.
 
 Denies the model's being/existence. Utilises *jax.numpy* when present for

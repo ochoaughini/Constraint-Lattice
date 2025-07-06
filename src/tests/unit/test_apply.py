@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 import pytest
 from constraint_lattice.engine.apply import apply_constraints, AuditStep, AuditTrace
 from datetime import datetime, timezone

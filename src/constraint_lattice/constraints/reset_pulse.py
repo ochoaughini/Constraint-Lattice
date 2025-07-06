@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """Reset-Pulse session memory clearing constraint.
 
 Illustrative constraint that symbolically resets conversational memory. Uses

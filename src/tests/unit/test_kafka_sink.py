@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 import os
 from unittest.mock import patch, MagicMock
 from constraint_lattice.engine.audit_sink_kafka import KafkaAuditSink

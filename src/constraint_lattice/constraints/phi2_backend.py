@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """Back-end providers for Phi-2 inference.
 
 This abstraction lets us swap Hugging Face Transformers (default) for other

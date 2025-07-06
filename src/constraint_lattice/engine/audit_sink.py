@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """Postgres sink for `AuditTrace` objects.
 
 Optional component: if `psycopg2` (or psycopg) is not installed or

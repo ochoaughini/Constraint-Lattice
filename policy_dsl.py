@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 # Placeholder for a meta-configuration DSL for constraint logic
 # Example: apply A if B did not mutate, chain X if Y failed, etc.
 

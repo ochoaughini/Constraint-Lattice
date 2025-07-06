@@ -1,3 +1,4 @@
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 import os
 import json
 import uuid

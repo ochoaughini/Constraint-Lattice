@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """Compatibility shim to keep legacy `import engine.*` working after the
 package was moved under the canonical `constraint_lattice.engine` namespace.
 

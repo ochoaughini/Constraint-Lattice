@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """Asynchronous streaming constraint evaluation with back-pressure.
 
 `apply_stream` consumes an async iterator of (prompt, partial_output) tuples

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """SemanticSimilarityGuard constraint.
 
 Redacts the model output when its cosine similarity to a *reference text* drops

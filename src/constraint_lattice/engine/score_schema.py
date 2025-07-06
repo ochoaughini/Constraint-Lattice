@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """Pydantic schema describing the output of model evaluators.
 
 Both PHI-2 and Gemma back-ends should return an instance of

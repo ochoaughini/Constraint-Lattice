@@ -1,0 +1,56 @@
+<!--
+SPDX-License-Identifier: BSL-1.1
+Copyright (c) 2025 Lexsight LCC. All rights reserved.
+See saas/LICENSE-BSL.txt for full terms.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Varkiel Agent</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background: #f5f8fa; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .panels { display: flex; gap: 20px; margin-bottom: 20px; }
+        .input-panel, .output-panel { flex: 1; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        textarea { width: 100%; height: 150px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; resize: vertical; }
+        button { background: #4e54c8; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        button:hover { background: #3f43a6; }
+        .results { margin-top: 20px; }
+        .chart-container { height: 300px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Varkiel Cognitive Architecture</h1>
+            <p>Interactive Demonstration Interface</p>
+        </div>
+        
+        <div class="panels">
+            <div class="input-panel">
+                <h2>Input</h2>
+                <textarea id="inputText" placeholder="Enter your input here..."></textarea>
+                <button id="processBtn">Process Input</button>
+            </div>
+            
+            <div class="output-panel">
+                <h2>Output</h2>
+                <div class="results">
+                    <div><strong>Min:</strong> <span id="minVal">-</span></div>
+                    <div><strong>Max:</strong> <span id="maxVal">-</span></div>
+                    <div><strong>Norm:</strong> <span id="normVal">-</span></div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="outputChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

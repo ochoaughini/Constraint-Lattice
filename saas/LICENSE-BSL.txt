@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: BSL-1.1
+Copyright (c) 2025 Lexsight LCC. All rights reserved.
+
 Business Source License 1.1
 
 Parameters
@@ -42,7 +45,10 @@ Other Conditions
    License and the above parameters.
 4. This License does not grant you any right in any trademark or logo
    of Licensor.
-
+5. Subject to the terms of this License, each contributor grants you a 
+   non-exclusive, worldwide, royalty-free patent license under their 
+   patent claims to make, use, sell, offer for sale, and import the 
+   Licensed Work.
 
 Full License Text
 =================

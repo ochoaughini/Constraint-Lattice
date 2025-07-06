@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """Ensure core modules work when SaaS features are disabled.
 
 We run these tests without setting the ENABLE_SAAS_FEATURES env var. Any import

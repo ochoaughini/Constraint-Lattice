@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """Load constraint scheduling policy from declarative YAML.
 
 Admins can ship hot-fixes by editing `policies/constraints.yaml` without a

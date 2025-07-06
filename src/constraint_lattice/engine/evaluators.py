@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """LLM-backed evaluators that return a :class:`ScoreSchema`.
 
 These implementations are **stubs** – they demonstrate the contract and a

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
+# Copyright (c) 2025 ochoaughini. See LICENSE for full terms.
 """Ensure the codebase behaves gracefully when vllm is absent.
 
 This runs in CPU-only CI where the *vllm* wheel is unlikely to be present.
