@@ -1,0 +1,6 @@
+{
+  "prompt": "hello",
+  "gemma_raw": "hello ::fake",
+  "gemma_moderated": "",
+  "phi2_raw": "hello ::fake"
+}

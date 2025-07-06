@@ -1,0 +1,46 @@
+# GKE Autopilot Deployment for Gemma LLM served via vLLM
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gemma-vllm
+  labels:
+    app: gemma-vllm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gemma-vllm
+  template:
+    metadata:
+      labels:
+        app: gemma-vllm
+    spec:
+      containers:
+        - name: vllm
+          image: ${IMAGE_URI}
+          args: ["--model", "gemma-2b", "--port", "8001"]
+          ports:
+            - containerPort: 8001
+          resources:
+            limits:
+              nvidia.com/gpu: 1  # Autopilot schedules to GPU node pool automatically
+              cpu: "4"
+              memory: "16Gi"
+          env:
+            - name: HF_HUB_OFFLINE
+              value: "1"
+      # Workload Identity service account (already IAM-bound to Vertex Storage)
+      serviceAccountName: vllm-sa
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gemma-vllm
+spec:
+  selector:
+    app: gemma-vllm
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8001
+  type: ClusterIP

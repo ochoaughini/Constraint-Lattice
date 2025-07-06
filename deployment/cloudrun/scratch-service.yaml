@@ -1,0 +1,28 @@
+# Cloud Run service definition (distroless scratch-like image)
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: constraint-lattice
+spec:
+  template:
+    metadata:
+      annotations:
+        run.googleapis.com/execution-environment: gen2
+        # Attach SBOM location – gcloud will rewrite ${IMAGE_URI} at deploy time
+        run.googleapis.com/sbom: "${IMAGE_URI}@/sbom/sbom.json"
+        autoscaling.knative.dev/minScale: "0"
+        autoscaling.knative.dev/maxScale: "5"
+    spec:
+      containers:
+        - image: ${IMAGE_URI}
+          ports:
+            - containerPort: 8000
+          env:
+            - name: ENABLE_SAAS_FEATURES
+              value: "true"
+            - name: CLATTICE_LOG_LEVEL
+              value: "INFO"
+          resources:
+            limits:
+              cpu: "1"
+              memory: "512Mi"

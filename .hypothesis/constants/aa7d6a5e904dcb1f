@@ -1,0 +1,4 @@
+# file: /Users/pitiochuaughini/Downloads/Constraint-Lattice-main/engine/score_schema.py
+# hypothesis_version: 6.135.16
+
+[0.0, 1.0, 'confidence', 'severity']

@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "constraint-lattice"
+version = "0.1.0"
+description = "Deterministic, auditable post-processing governance framework for LLM outputs."
+authors = [
+  { name = "Constraint Lattice Team", email = "opensource@example.com" }
+]
+readme = "README.md"
+requires-python = ">=3.9,<3.14"
+license = {text = "MIT"}
+keywords = ["ai-safety", "llm", "governance", "audit", "content-moderation"]
+
+# Core runtime dependencies
+dependencies = [
+  "huggingface_hub>=0.22",
+]
+
+[project.optional-dependencies]
+hf = [
+  "torch>=2.1",
+  "transformers>=4.40",
+  "bitsandbytes; platform_system=='Linux' and platform_machine=='x86_64'",
+]
+jax = ["jax", "jaxlib"]
+ui = ["streamlit"]
+api = ["fastapi", "uvicorn[standard]"]
+dev = ["pytest", "hypothesis", "ruff", "black", "mypy", "pre-commit"]
+perf = ["vllm>=0.4.0", "prometheus-client>=0.19.0"]
+phi2 = ["torch>=2.1", "transformers>=4.40", "bitsandbytes; platform_system=='Linux' and platform_machine=='x86_64'"]
+saas = [
+  "pydantic<2.0",
+  "sentence-transformers>=2.2.0",
+  "fastapi>=0.111",
+  "uvicorn[standard]>=0.29",
+  "python-multipart>=0.0.7",
+  "SQLAlchemy>=2.0",
+  "asyncpg>=0.29",
+  "redis>=5.0",
+  "stripe>=9.0",
+]
+
+[project.scripts]
+cl-apply = "cli:main"
+cl-saas = "saas.main:run"
+
+[tool.setuptools]
+py-modules = ["cli"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+sdk = "sdk"
+
+[tool.setuptools.packages.find]
+where = ["src", "sdk"]
+exclude = ["clattice"]
+
+[tool.black]
+line-length = 88
+
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "I", "UP", "SIM"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.9"
+ignore_missing_imports = true

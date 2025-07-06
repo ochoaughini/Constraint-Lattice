@@ -1,0 +1,25 @@
+# Cloud Run service definition for Constraint-Lattice API
+aapiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: cl-api
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "0"
+        autoscaling.knative.dev/maxScale: "10"
+    spec:
+      containers:
+        - image: ${IMAGE_URI}
+          ports:
+            - containerPort: 8000
+          env:
+            - name: CONSTRAINT_LATTICE_USE_JAX
+              value: "1"
+          resources:
+            limits:
+              cpu: "2"
+              memory: "1Gi"
+          # Optional: mount service account key or use workload identity
+      serviceAccountName: run-sa

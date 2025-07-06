@@ -1,0 +1,4 @@
+# file: /Users/guto.ochoa/Downloads/Constraint-Lattice-main/src/constraint_lattice/constraints/semantic_similarity_guard.py
+# hypothesis_version: 6.135.24
+
+[0.0, 0.8, 1.0, "[A-Za-z']+", 'safety', 'semantic']

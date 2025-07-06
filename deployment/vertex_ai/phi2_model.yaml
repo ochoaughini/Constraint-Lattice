@@ -1,0 +1,9 @@
+# Vertex AI model upload for Phi-2 moderator
+# Usage:
+#   gcloud ai models upload --region=us-central1 --model-display-name=phi2-moderator \
+#     --container-image-uri=${IMAGE_URI} --config=deployment/vertex_ai/phi2_model.yaml
+
+containerSpec:
+  predictRoute: /predict
+  healthRoute: /health
+  containerImageUri: ${IMAGE_URI}

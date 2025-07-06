@@ -1,0 +1,6 @@
+[flake8]
+exclude = .git,__pycache__,build,dist,*.egg-info,venv,varkiel-env
+per-file-ignores =
+    # Ignore third-party code
+    **/site-packages/*: F401,F403,F405,E402
+max-line-length = 120

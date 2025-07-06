@@ -1,0 +1,4 @@
+# file: /Users/guto.ochoa/Downloads/Constraint-Lattice-main/src/constraint_lattice/engine/jax_backend.py
+# hypothesis_version: 6.135.24
+
+['0', '1', 'JAXConstraint', '__qualname__', 'jax.Array', 'ndim']

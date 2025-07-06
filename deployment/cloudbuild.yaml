@@ -1,0 +1,30 @@
+# Cloud Build steps for Constraint-Lattice container
+# Invoked via `gcloud builds submit --config=deployment/cloudbuild.yaml`.
+# An image tag is passed via _IMAGE substitution variable.
+
+steps:
+  # 1. Unit tests (CPU-only)
+  - name: python:3.10-slim
+    id: "run-tests"
+    entrypoint: bash
+    args:
+      - "-c"
+      - |
+        pip install --no-cache-dir -r requirements-dev.txt && \
+        pytest -q
+
+  # 2. Build the production image (uses existing Dockerfile)
+  - name: "gcr.io/cloud-builders/docker"
+    id: "docker-build"
+    args: ["build", "-t", "${_IMAGE}", "."]
+
+  # 3. Push to Artifact Registry
+  - name: "gcr.io/cloud-builders/docker"
+    id: "docker-push"
+    args: ["push", "${_IMAGE}"]
+
+substitutions:
+  _IMAGE: "us-central1-docker.pkg.dev/my-project/constraint-api/engine:latest"
+
+images:
+  - "${_IMAGE}"

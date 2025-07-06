@@ -1,0 +1,51 @@
+# Constraint Configuration
+# Defines constraints and their parameters for the Constraint Lattice engine
+
+# Alphabetically sorted constraints
+constraints:
+  # Boundary Prime constraint
+  - name: boundary_prime
+    method: regex
+    parameters:
+      pattern: "\\b(prime|primality)\\b"
+
+  # Length constraint
+  - name: length
+    method: text
+    parameters:
+      max_length: 100
+      min_length: 10
+
+  # Mirror Law constraint
+  - name: mirror_law
+    method: semantic
+    parameters:
+      threshold: 0.85
+
+  # Profanity Filter constraint
+  - name: profanity
+    method: regex
+    parameters:
+      pattern: "\\b(bad|naughty|words)\\b"
+
+  # Reset Pulse constraint
+  - name: reset_pulse
+    method: symbolic
+    parameters:
+      interval: 5
+
+# Default profile
+profiles:
+  default:
+    - class: constraint_lattice.constraints.length.LengthConstraint
+      params:
+        max_length: 100
+    - class: constraint_lattice.constraints.phi2_moderation.ConstraintPhi2Moderation
+    - class: constraint_lattice.constraints.profanity.ProfanityFilter
+    - class: constraint_lattice.constraints.semantic_similarity_guard.SemanticSimilarityGuard
+      params:
+        reference: "This is a reference text for semantic similarity comparison. It should be replaced with your actual reference text."
+  regulated:
+    - Safeguard001
+    - StasisCore
+    - ResetPulse
