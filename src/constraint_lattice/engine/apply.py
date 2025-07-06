@@ -59,7 +59,9 @@ class AuditStep:
     tenant_id: Optional[str] = None
     model_scores: Dict[str, float] = field(default_factory=dict)
     embeddings: Dict[str, list] = field(default_factory=dict)
-    timestamp: datetime = field(default_factory=datetime.utcnow)
+    timestamp: datetime = field(
+        default_factory=lambda: datetime.utcnow().replace(tzinfo=timezone.utc)
+    )
 
     # Lifecycle and core methods
     def to_dict(self):

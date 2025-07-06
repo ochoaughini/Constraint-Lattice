@@ -5,7 +5,7 @@
 import json
 import os
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict
 
 try:
@@ -29,7 +29,7 @@ class KafkaAuditSink:
         # Enrich step with session id and timestamp
         payload = {
             "session_id": str(uuid.uuid4()),
-            "timestamp_utc": datetime.utcnow().isoformat(),
+            "timestamp_utc": datetime.now(timezone.utc).isoformat(),
             **audit_step
         }
         
