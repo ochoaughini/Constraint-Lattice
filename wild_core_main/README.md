@@ -2,7 +2,7 @@
 
 [![CI/CD](https://github.com/ochoaughini/WildCore/actions/workflows/ci.yml/badge.svg)](https://github.com/ochoaughini/WildCore/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Python Version](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![Documentation](https://img.shields.io/badge/docs-passing-brightgreen)](https://github.com/ochoaughini/WildCore/wiki)
 
 **WildCore is an open-source framework for simulating, detecting, and analyzing vulnerabilities in embedding-based Artificial Intelligence systems.**

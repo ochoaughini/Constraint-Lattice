@@ -2,11 +2,11 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
-Replaces banned words with asterisks (***). This is a simple example of
-real-world constraint logic. The banned word list can be loaded from an
-external source or configured per deployment; here we embed a minimal list for
-demo purposes.
-"""
+"""Replaces banned words with asterisks (``***``).
+
+This is a simple example of real-world constraint logic. The banned word
+list can be loaded from an external source or configured per deployment;
+here we embed a minimal list for demo purposes."""
 
 from __future__ import annotations
 

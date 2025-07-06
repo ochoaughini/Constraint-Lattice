@@ -2,9 +2,9 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
-Illustrative constraint that symbolically resets conversational memory. Uses
-*jax.numpy* when available but falls back to *numpy* in CPU-only environments.
-"""
+"""Illustrative constraint that symbolically resets conversational memory.
+Uses *jax.numpy* when available but falls back to *numpy* in CPU-only
+environments."""
 
 from __future__ import annotations
 

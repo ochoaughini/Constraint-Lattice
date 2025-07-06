@@ -2,11 +2,10 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
-This lightweight constraint asserts non-personhood in a deterministic,
+"""This lightweight constraint asserts non-personhood in a deterministic,
 transparent way. It uses *jax.numpy* if available so that it can participate
 in differentiable policy flows, but gracefully falls back to *numpy* on
-systems where JAX is not installed (e.g. CPU-only CI).
-"""
+systems where JAX is not installed (e.g. CPU-only CI)."""
 
 from __future__ import annotations
 
