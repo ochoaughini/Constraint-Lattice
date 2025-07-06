@@ -2,6 +2,10 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
+from typing import List, Optional
+import re
+
+
 class ProfanityFilter:
     """Filter for detecting and replacing profanity in text.
     
