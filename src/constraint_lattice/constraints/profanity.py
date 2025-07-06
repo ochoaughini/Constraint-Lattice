@@ -2,10 +2,10 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
-This module contains the ProfanityFilter class which implements a constraint to filter out profane language.
-"""
-from typing import List, Optional, Set
+"""This module contains the `ProfanityFilter` class which implements a
+constraint to filter out profane language."""
 import re
+from typing import List, Optional, Set
 
 from constraint_lattice.engine import Constraint
 
@@ -21,9 +21,12 @@ class ProfanityFilter(Constraint):
         profanity_list: List of profane words to filter
         replacement: String to replace profane words with
     """
+
     priority = 100
 
-    def __init__(self, profanity_list: Optional[List[str]] = None, replacement: str = "***"):
+    def __init__(
+        self, profanity_list: Optional[List[str]] = None, replacement: str = "***"
+    ):
         """
         Initialize the ProfanityFilter.
 
@@ -36,7 +39,9 @@ class ProfanityFilter(Constraint):
         self.replacement = replacement
         # Escape each word for regex and create a pattern that matches whole words
         escaped_words = [re.escape(word) for word in self.profanity_list]
-        self.pattern = re.compile(r"\b(" + "|".join(escaped_words) + r")\b", re.IGNORECASE)
+        self.pattern = re.compile(
+            r"\b(" + "|".join(escaped_words) + r")\b", re.IGNORECASE
+        )
 
     def get_default_bad_words(self) -> List[str]:
         """Return a default list of profane words."""

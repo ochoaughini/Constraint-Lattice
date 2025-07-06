@@ -10,7 +10,7 @@ authors = [
   { name = "Constraint Lattice Team", email = "opensource@example.com" }
 ]
 readme = "README.md"
-requires-python = ">=3.9,<3.14"
+requires-python = ">=3.11,<3.14"
 license = {text = "MIT"}
 keywords = ["ai-safety", "llm", "governance", "audit", "content-moderation"]
 
@@ -66,5 +66,5 @@ select = ["E", "F", "I", "UP", "SIM"]
 ignore = ["E501"]
 
 [tool.mypy]
-python_version = "3.9"
+python_version = "3.11"
 ignore_missing_imports = true

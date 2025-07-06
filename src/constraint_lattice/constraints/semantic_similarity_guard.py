@@ -2,16 +2,17 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
-Redacts the model output when its cosine similarity to a *reference text* drops
-below a threshold τ (tau).  Implements a pure-Python fallback using *numpy* and
-an optional *jax* path when available.
+"""Redacts the model output when its cosine similarity to a *reference text*
+drops below a threshold τ (tau).
+
+Implements a pure-Python fallback using *numpy* and an optional *jax* path
+when available.
 
 Rationale
 ~~~~~~~~~
 Ensures that generated text stays semantically close to an allowed reference.
 This can be used, for example, to keep summaries aligned to a source document
-or to prevent topic drift in multi-turn conversations.
-"""
+or to prevent topic drift in multi-turn conversations."""
 from __future__ import annotations
 
 import math
@@ -21,15 +22,17 @@ from typing import List
 
 try:
     import jax.numpy as jnp  # type: ignore
+
     _HAS_JAX = True
 except ModuleNotFoundError:  # pragma: no cover – CI may not have JAX
     import numpy as jnp  # type: ignore
+
     _HAS_JAX = False
 
 from engine.scheduler import constraint
+from constraint_lattice.logging_config import configure_logger
 
-logger = from constraint_lattice.logging_config import configure_logger
-logger = configure_logger(__name__)(__name__)
+logger = configure_logger(__name__)
 
 _WORD_RE = re.compile(r"[A-Za-z']+")
 
@@ -93,6 +96,7 @@ class SemanticSimilarityGuard:
         if sim < self.tau:
             try:
                 from constraint_lattice.engine.telemetry import REQUEST_ERRORS  # type: ignore
+
                 REQUEST_ERRORS.inc()
             except Exception:  # pragma: no cover
                 pass

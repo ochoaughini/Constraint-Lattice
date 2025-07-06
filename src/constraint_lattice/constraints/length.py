@@ -2,8 +2,9 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
-This module contains the LengthConstraint class which enforces a maximum length on text.
-"""
+"""This module contains the ``LengthConstraint`` class which enforces a
+maximum length on text."""
+
 from constraint_lattice.engine import Constraint
 
 
@@ -16,6 +17,7 @@ class LengthConstraint(Constraint):
         truncate: Whether to truncate the text if it exceeds the max_length
         ellipsis: The string to append to truncated text
     """
+
     priority = 50
 
     def __init__(self, max_length: int, truncate: bool = True, ellipsis: str = ""):
@@ -43,7 +45,7 @@ class LengthConstraint(Constraint):
             The truncated text if it was too long, otherwise the original text
         """
         if len(text) > self.max_length and self.truncate:
-            truncated = text[:self.max_length]
+            truncated = text[: self.max_length]
             if self.ellipsis:
                 truncated += self.ellipsis
             return truncated

@@ -2,16 +2,16 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
-This abstraction lets us swap Hugging Face Transformers (default) for other
-implementations such as **vLLM**.  It keeps `ConstraintPhi2Moderation` focused on
-moderation logic while delegating language-model inference and regeneration to
-back-ends that share the same tiny surface-area:
+"""Abstraction layer to swap Hugging Face Transformers for other back-ends.
+
+It keeps ``ConstraintPhi2Moderation`` focused on moderation logic while
+delegating language-model inference and regeneration to providers that share
+the same tiny surface area::
 
     analyse(text: str) -> dict
     regenerate(text: str, categories: list[str]) -> str
 
-Only these two methods are required.
-"""
+Only these two methods are required."""
 
 from __future__ import annotations
 

@@ -2,10 +2,9 @@
 # Copyright (c) 2025 ochoaughini. All rights reserved.
 # See LICENSE for full terms.
 
-Denies the model's being/existence. Utilises *jax.numpy* when present for
+"""Denies the model's being/existence. Utilises *jax.numpy* when present for
 symbolic computation, otherwise falls back to *numpy* so that the project can
-run in CPU-only environments.
-"""
+run in CPU-only environments."""
 
 from __future__ import annotations
 
