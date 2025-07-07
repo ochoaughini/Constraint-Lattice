@@ -16,17 +16,28 @@ __all__ = [
     # Important classes
     'AuditStep',
     'AuditTrace',
-    
+
+    # Advanced modules
+    'ConstraintOntologyCompiler',
+    'CrossAgentAlignmentLedger',
+    'SemanticReflexivityIndex',
+
     # Submodules
     'engine',
     'constraints',
-    'services'
+    'services',
+    'compiler',
+    'ledger',
+    'reflexivity'
 ]
 
 # Public API imports
 from .engine import apply_constraints
 from .engine.schema import ConstraintConfig
 from .engine.apply import AuditStep, AuditTrace
+from .compiler import ConstraintOntologyCompiler
+from .ledger import CrossAgentAlignmentLedger
+from .reflexivity import SemanticReflexivityIndex
 
 import importlib
 import sys
@@ -42,8 +53,10 @@ def _alias(top_level_name: str) -> None:
     sys.modules[f"constraint_lattice.{top_level_name}"] = module
     setattr(sys.modules[__name__], top_level_name, module)
 
-for _m in ("engine", "constraints", "sdk"):
+for _m in ("engine", "constraints"):
     _alias(_m)
+if os.getenv("CL_IMPORT_SDK", "1") == "1":
+    _alias("sdk")
 
 if os.getenv("ENABLE_SAAS_FEATURES", "false").lower() in ["true", "1"]:
     from .saas import *

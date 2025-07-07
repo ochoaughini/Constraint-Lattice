@@ -32,6 +32,8 @@ from .agents import Fi2Agent, GemmaAgent
 from .mode import get_execution_mode
 
 # Configure module logger
+from constraint_lattice.ledger import CrossAgentAlignmentLedger
+from constraint_lattice.reflexivity import SemanticReflexivityIndex
 logger = logging.getLogger(__name__)
 
 @dataclass
@@ -133,6 +135,8 @@ def apply_constraints(
     # Support legacy parameter name
     if "return_trace" in kwargs:
         return_audit_trace = kwargs.pop("return_trace")
+    ledger: CrossAgentAlignmentLedger | None = kwargs.get("ledger")
+    reflexivity_index: SemanticReflexivityIndex | None = kwargs.get("reflexivity_index")
 
     # Determine execution mode
     mode = get_execution_mode()
@@ -186,6 +190,10 @@ def apply_constraints(
                                 timestamp=datetime.now(timezone.utc)
                             )
                         )
+                        if ledger:
+                            ledger.record("engine", constraint_name, "applied", {"method": method_name})
+                        if reflexivity_index and pre_text != processed_output:
+                            reflexivity_index.record_self_correction()
                         logger.info(
                             f"Applied {method_name} from {constraint.__class__.__name__}"
                         )
@@ -200,6 +208,10 @@ def apply_constraints(
                 logger.error(
                     f"Error in {constraint.__class__.__name__} with prompt '{prompt}': {e}"
                 )
+                if ledger:
+                    ledger.record("engine", constraint_name, "error", {"error": str(e)})
+                if reflexivity_index:
+                    reflexivity_index.record_violation()
                 processed_output = output
                 logger.warning("Falling back to original output due to error.")
         if return_audit_trace:
