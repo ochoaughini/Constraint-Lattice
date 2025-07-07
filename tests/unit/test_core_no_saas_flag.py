@@ -2,9 +2,9 @@
 # Copyright (c) 2025 Lexsight LCC. All rights reserved.
 # See saas/LICENSE-BSL.txt for full terms.
 
-We run these tests without setting the ENABLE_SAAS_FEATURES env var. Any import
-of the `saas` package should therefore fail, and normal engine functionality
-should remain unaffected.
+"""We run these tests without setting the ENABLE_SAAS_FEATURES env var.
+Any import of the ``saas`` package should therefore fail, and normal
+engine functionality should remain unaffected.
 """
 from __future__ import annotations
 
