@@ -9,6 +9,7 @@ Welcome! This page is the starting point for all user guides, design notes, and 
 - [The Constraint Lattice: Principles, Applications, and Inference](principles.md)
 - [Constraint Lattice: A Formal Language Approach](formal_language_approach.md)
 - [Containment and Autolearning Architecture](containment_autolearning.md)
+- [Advanced Schemas and Operational Extensions](advanced_schemas_and_operations.md)
 
 ## Deployment Guides
 - [Hybrid Deployment Strategy](hybrid_deployment_strategy.md)
