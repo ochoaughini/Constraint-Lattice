@@ -30,7 +30,8 @@ jobs:
 
       - run: pip install black isort pytest
 
-      - run: make unify
+      - id: unify
+        run: make unify
 
       - uses: actions/upload-artifact@v4
         with: {name: merge-artifacts, path: merge-artifacts/}
