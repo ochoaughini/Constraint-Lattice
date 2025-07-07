@@ -19,6 +19,10 @@ import sys
 from pathlib import Path
 
 from sdk.engine import ConstraintEngine
+from constraint_lattice.engine import (
+    ConstraintLatticePipeline,
+    recursive_autolearning_orchestrator,
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -38,6 +42,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Emit full JSON with audit trace (default: text only)",
     )
+    p.add_argument(
+        "--enable-meta-strategy",
+        action="store_true",
+        help="Invoke meta orchestrator after constraint evaluation",
+    )
     return p.parse_args()
 
 
@@ -49,7 +58,19 @@ def main() -> None:
     # Naive inference stub – real model call intentionally omitted for brevity.
     # Replace with transformers pipeline or server call as needed.
     generated = f"[MODEL:{args.model}] response for: {args.prompt}"
-    moderated, trace = engine.run(args.prompt, generated, return_trace=True)
+
+    if args.enable_meta_strategy:
+        pipeline = ConstraintLatticePipeline(
+            engine.constraints,
+            meta_orchestrator=recursive_autolearning_orchestrator,
+        )
+        moderated, trace = pipeline.run(
+            args.prompt,
+            generated,
+            return_trace=True,
+        )
+    else:
+        moderated, trace = engine.run(args.prompt, generated, return_trace=True)
 
     if args.json:
         print(json.dumps({"moderated": moderated, "trace": [s.to_dict() for s in trace]}))

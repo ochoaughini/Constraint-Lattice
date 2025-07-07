@@ -62,6 +62,8 @@ class AuditStep:
     timestamp: datetime = field(
         default_factory=lambda: datetime.utcnow().replace(tzinfo=timezone.utc)
     )
+    strategy_reindex: Optional[Dict[str, Any]] = None
+    drift_score: Optional[float] = None
 
     # Lifecycle and core methods
     def to_dict(self):
@@ -83,6 +85,10 @@ class AuditStep:
             base["model_scores"] = self.model_scores
         if self.embeddings:
             base["embeddings"] = self.embeddings
+        if self.strategy_reindex is not None:
+            base["strategy_reindex"] = self.strategy_reindex
+        if self.drift_score is not None:
+            base["drift_score"] = self.drift_score
         return base
 
 
