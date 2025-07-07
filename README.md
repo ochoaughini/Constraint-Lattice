@@ -109,6 +109,7 @@ Constraint-Lattice/
 - [Core Concepts](docs/principles.md)
 - [API Reference](docs/api.md)
 - [Tutorial](docs/tutorial.md)
+- [Advanced Schemas](docs/advanced_schemas_and_operations.md)
 - [Deployment Strategies](docs/hybrid_deployment_strategy.md)
 
 ## Contributing
