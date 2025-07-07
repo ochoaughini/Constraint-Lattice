@@ -1,0 +1,36 @@
+name: harmonize
+
+on:
+  push: {branches: [main]}
+  workflow_dispatch:
+
+concurrency:
+  group: merge-harmoniser
+  cancel-in-progress: true
+
+jobs:
+  unify:
+    runs-on: ubuntu-latest
+    env:
+      BASE_DIR: ${{ github.workspace }}
+      CI_NAME: GitHub-CI
+      CI_EMAIL: ci@your-org.com
+      GPG_SIGNING_KEY: ${{ secrets.GPG_KEY_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+
+      - run: pip install black isort pytest
+
+      - run: make unify
+
+      - uses: actions/upload-artifact@v4
+        with: {name: merge-artifacts, path: merge-artifacts/}

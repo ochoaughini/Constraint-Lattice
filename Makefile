@@ -6,7 +6,7 @@ REPO       ?= constraint-lattice
 TAG        ?= $(shell date +%Y%m%d-%H%M%S)
 IMAGE_URI  ?= $(REGION)-docker.pkg.dev/$(PROJECT_ID)/$(REPO)/constraint-lattice:$(TAG)
 
-.PHONY: build push deploy all
+.PHONY: build push deploy all unify
 
 build:
 	docker build -f Dockerfile.distroless -t $(IMAGE_URI) .
@@ -30,3 +30,6 @@ deploy: build push cloudrun-yaml gcmath
 	@echo "Deployed $(IMAGE_URI) to Cloud Run."
 
 all: deploy
+
+unify:
+	bash scripts/unify.sh
