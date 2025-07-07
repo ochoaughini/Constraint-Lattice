@@ -22,6 +22,8 @@ When cycles are present, the engine either collapses nodes in the cycle or abort
 
 A Graphviz diagram or similar visualisation can be used to illustrate this schema in practice.
 
+Implementation utilities for these operations are provided in ``constraint_lattice.engine.graph_ops``. Functions such as ``detect_cycles`` and ``collapse_cycles`` expose the cycle handling logic programmatically.
+
 ## 2. Drift Metrics and Heuristic Divergence
 
 Alignment drift is measured using embeddings of the symbolic topology. Given the current topology embedding `T` and a historical memory embedding `M`, drift is defined as:
@@ -29,6 +31,8 @@ Alignment drift is measured using embeddings of the symbolic topology. Given the
 $$\mathrm{drift}(T, M) = \| \mathrm{encode}(T) - M \|_2.$$
 
 Thresholds on this score determine when re-alignment routines should run. Logging drift over time helps operators detect gradual behaviour changes.
+
+The helper ``compute_drift`` in ``constraint_lattice.engine.graph_ops`` implements this metric.
 
 Heuristics include reinforcing constraints when drift grows, or relaxing strategies when alignment remains high. The containment and autolearning functions use this score internally.
 
