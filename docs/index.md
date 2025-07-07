@@ -23,3 +23,5 @@ Welcome! This page is the starting point for all user guides, design notes, and 
 
 ---
 Last updated: 2025-07-03
+
+- [Varkiel Architecture Overview](varkiel_overview.md)
