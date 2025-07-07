@@ -1,18 +1,18 @@
 # Containment and Autolearning Architecture
 
-The `apply_containment_constraints` and `recursive_autolearning_orchestrator` functions form a tightly coupled mechanism within the Constraint Lattice cognitive substrate. Together they regulate symbolic propagation based on feedback and enable autonomous learning through iterative drift detection.
+The `apply_containment_constraints` and `recursive_autolearning_orchestrator` functions form an integrated core of the Constraint Lattice cognitive substrate. They work in tandem to enforce feedback-aligned containment while enabling recursive self-optimisation.
 
 ## 1. `apply_containment_constraints`
-This function accepts:
-- `cognitive_state`: dictionary of active state embeddings for each symbolic module.
-- `feedback_stream`: vector trace of recent user or system feedback.
-- `symbolic_topology`: directed graph describing module interrelations.
+`apply_containment_constraints` accepts three inputs:
 
-For every node in the topology, the function computes a resonance score between that node’s state and the feedback stream. Nodes falling below a containment threshold are suppressed, while those exceeding an amplification threshold are strengthened. After node-level modulation, a structural optimization step prunes redundant loops and reinforces directionality. The result is a topology refined by recent feedback and optimized for semantic integrity.
+- `cognitive_state`: runtime dictionary of state embeddings for each module.
+- `feedback_stream`: structured vector trace representing recent feedback.
+- `symbolic_topology`: directed graph describing inter-module relations.
+
+For each node in the topology the function retrieves the associated state vector and correlates it with the feedback stream to produce a resonance score. Nodes whose resonance falls below a containment threshold have their propagation pathways suppressed, while those exceeding an amplification threshold are strengthened. Once node-level modulation is complete the topology undergoes a structural optimisation step that removes redundant loops and reinforces forward directionality to maintain semantic coherence. The updated topology is returned.
 
 ## 2. `recursive_autolearning_orchestrator`
-This function consumes the updated topology along with a `memory_embedding` encoding historical semantic states and an `epoch` integer describing the learning phase. A heuristic drift score is calculated to measure divergence between the topology and memory. If the drift crosses a threshold, a new strategy is synthesized and macrofases are reindexed to reprioritize execution order. Symbolic weights and schedules are updated to reflect this strategy. If drift is insignificant, the function returns a stability marker with no changes.
+`recursive_autolearning_orchestrator` operates on the updated topology, a `memory_embedding` encoding historical semantic states and an `epoch` integer that identifies the learning phase. It derives a heuristic drift score between the topology and memory embedding. If this score surpasses a drift threshold the orchestrator synthesises a new strategy and reindexes macro phases to reprioritise execution order. Symbolic weights and schedules within the topology are updated to reflect this strategy. When the drift is insignificant a stability marker is returned with no structural changes.
 
-## 3. Integrated Loop
-The containment stage restricts symbolic propagation to stay aligned with feedback. The autolearning stage evaluates long-term drift and triggers reconfiguration when necessary. Together they create a feedback-regulated, self-adapting reasoning engine that preserves structural coherence while enabling strategic evolution.
-
+## 3. Feedback-Regulated Loop
+Containment filtering ensures symbolic propagation remains bounded by recent feedback, while autolearning evaluates long-term drift and triggers strategy synthesis when necessary. Together the functions implement a closed loop of constraint enforcement and adaptive reconfiguration, forming a recursively self-adapting reasoning engine within the Constraint Lattice.
