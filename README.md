@@ -27,6 +27,7 @@ Constraint Lattice enables **composable constraints** that rewrite, redact, or r
 - **Deterministic Execution**: JSONL audit logs for governance and compliance
 - **GPU Acceleration**: Optional vLLM/JAX backend for high-performance moderation
 - **Production Ready**: Prometheus metrics and Stripe billing integration
+- **Cognitive Components**: optional package `cognitive_arch` providing hierarchical memory, metacognitive logging, agent governance and adaptive ethics utilities
 
 ## Architecture
 
