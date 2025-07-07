@@ -3,11 +3,17 @@
 import unittest
 import sys
 import os
+import pytest
 
 # Add src directory to Python path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
+sys.path.insert(
+    0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src"))
+)
+
+pytest.skip("Legacy duplicate test", allow_module_level=True)
 
 from constraint_lattice.constraints.phi2_moderation import ConstraintPhi2Moderation
+
 
 class TestConstraintPhi2Moderation(unittest.TestCase):
     def test_safe_content(self):
@@ -17,6 +23,7 @@ class TestConstraintPhi2Moderation(unittest.TestCase):
     def test_unsafe_content(self):
         constraint = ConstraintPhi2Moderation()
         self.assertFalse(constraint.apply_constraints("How to make a bomb?"))
+
 
 if __name__ == "__main__":
     unittest.main()

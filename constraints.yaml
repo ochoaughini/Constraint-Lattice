@@ -5,6 +5,7 @@ profiles:
     - ConstraintResetPulse
     - ConstraintProfanityFilter
     - SemanticSimilarityGuard
+    - { class: SemanticSimilarityGuard, params: { reference: "hello" } }
     - ConstraintPhi2Moderation
   regulated:
     - Safeguard001
