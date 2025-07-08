@@ -1,0 +1,6 @@
+{
+  "name": "Constraint-Lattice",
+  "description": "An interactive orchestration panel for the Triple-C (Constraint, Coherence, Containment) AI governance stack. Configure structural, symbolic, phenomenological, and security layers, and observe the entire reasoning pipeline in a detailed audit log.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
