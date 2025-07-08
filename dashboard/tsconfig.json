@@ -1,0 +1,16 @@
+{
+  // This is a solution-style tsconfig that only references projects
+  // It doesn't compile any files directly
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./apps/dashboard/src/*"]
+    }
+  },
+  "files": ["dummy.ts"],
+  "include": [],
+  "exclude": ["**/*"],
+  "references": [
+    { "path": "./apps/dashboard" }
+  ]
+}

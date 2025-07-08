@@ -66,6 +66,8 @@ cd Constraint-Lattice
 pip install -e .[dev]  # Development mode (includes linting/tests)
 pip install constraint-lattice     # Core framework only
 pip install "constraint-lattice[perf]"  # +Performance extensions
+# Install JS dependencies for the dashboard
+yarn install
 ```
 
 ### Docker
@@ -90,6 +92,12 @@ result = apply_constraints(
 print(result.filtered_text)
 ```
 
+### Launch the Dashboard
+
+```bash
+yarn dev:dashboard
+```
+
 ## Project Structure
 
 ```
@@ -101,6 +109,7 @@ Constraint-Lattice/
 ├── sdk/                         # Python SDK
 ├── rest_api/                    # FastAPI microservice
 ├── ui/                          # Streamlit audit viewer
+├── dashboard/                   # Vite/React dashboard
 ├── tests/                       # Unit tests
 └── ...
 ```
