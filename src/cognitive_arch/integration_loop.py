@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from .hierarchical_memory import HierarchicalMemory
+from .emancipation_metric import EmancipationMetric
 
 
 class ModelWrapper:
@@ -64,6 +65,7 @@ class CognitiveIntegrationLoop:
         self.policy = CallPolicyEngine(self.registry)
         self.synthesizer = ConstraintSynthesizer()
         self.memory = HierarchicalMemory(memory_path)
+        self.emancipation = EmancipationMetric(self.memory)
 
     def register_model(self, name: str, call_fn: Callable[[str], str]) -> None:
         self.registry.register(ModelWrapper(name, call_fn))
@@ -74,6 +76,9 @@ class CognitiveIntegrationLoop:
         model = self.policy.select(compute, severity)
         result = model(prompt)
         self.memory.add(["trace", model.name], {"prompt": prompt, "result": result})
+        # Update emancipation score based on output length ratio
+        score = len(result) / max(len(prompt), 1)
+        self.emancipation.update(min(score, 1.0))
         return result
 
     async def heartbeat(self, interval: float = 60.0) -> None:
