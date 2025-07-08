@@ -21,6 +21,7 @@ from wildcore.detector import AutoRegulatedPromptDetector
 from sentence_transformers import SentenceTransformer
 from varkiel.policy_dsl import PolicyEngine
 from varkiel.coherence import RecursiveInvarianceMonitor
+from varkiel.decision_heuristics import DecisionInterventionHeuristics
 import numpy as np
 import pickle
 
@@ -40,6 +41,9 @@ class CentralController:
         self._init_components()
         self.policy_engine = PolicyEngine()
         self.coherence_monitor = RecursiveInvarianceMonitor()
+        self.heuristics = DecisionInterventionHeuristics(
+            threshold=self.config.get("heuristic_threshold", 0.5)
+        )
         
     def _init_components(self):
         """Initialize all processing components"""
@@ -106,6 +110,9 @@ class CentralController:
                 
             # Apply coherence monitoring
             state = self._apply_coherence_monitoring(state)
+
+            # Heuristic intervention if necessary
+            state = self.heuristics.maybe_intervene(state)
             
             return ProcessingResult(
                 output=state.text,
