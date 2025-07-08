@@ -4,15 +4,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Iterable
 
-from .constraint_lattice import ConstraintLattice
-from .wildcore import WildCore
-from .phi2_model import moderate
-from .gemma_model import extract_facts
-from .foundation_proxy import FoundationProxy
-from .memory_store import MemoryStore
 from .autolearn import DriftManager
+from .constraint_lattice import ConstraintLattice
+from .foundation_proxy import FoundationProxy
+from .gemma_model import extract_facts
+from .memory_store import MemoryStore
+from .phi2_model import moderate
+from .wildcore import WildCore
 
 
 @dataclass
@@ -33,12 +32,19 @@ class VarkielAgent:
         for i, fact in enumerate(facts):
             node_id = f"{source}_{i}"
             self.lattice.add_node(node_id, fact, source=source)
-            self.memory.add(node_id, fact)
+            self.memory.add(node_id, fact, origin=source, lineage="ingest")
         self.drift.update(facts)
 
     def query(self, prompt: str) -> str:
         if self.wildcore.scan(prompt):
             return "Request blocked."
+
+        matches = list(self.memory.search_similar(prompt, threshold=0.9))
+        if matches:
+            candidate = matches[0]
+            if self.lattice.validate(candidate):
+                return candidate
+
         if self.lattice.validate(prompt):
             return prompt
         external = self.foundation.query(prompt)
