@@ -17,6 +17,7 @@ Welcome! This page is the starting point for all user guides, design notes, and 
 ## Proposals
 - [Phi-2 Integration Proposal](phi2_integration_proposal.md)
 - [Cognitive Integration Loop](cognitive_integration_loop.md)
+- [Metodologia de Evolução Cognitiva Sintética](synthetic_cognitive_evolution.md)
 
 ## Examples
 - [Transformers Gemma Example](transformers_gemma_example.md)
