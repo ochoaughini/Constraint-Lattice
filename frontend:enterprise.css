@@ -1,0 +1,50 @@
+body.enterprise-view {
+    font-family: 'Roboto', sans-serif;
+    background: #F8F9FA;
+    color: #001F3F;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #001F3F;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+h1, h2 {
+    font-weight: 700;
+}
+
+.panel {
+    background: #FFFFFF;
+    border: 1px solid #6C757D;
+    padding: 20px;
+    margin: 10px;
+    opacity: 0;
+    transition: opacity 0.5s, transform 0.5s;
+    transform: translateY(20px);
+}
+
+#demo-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #007BFF;
+    color: white;
+    padding: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.api-btn {
+    background: #6C757D;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+}
+
+@media (max-width: 768px) {
+    .panel { margin: 5px; padding: 10px; }
+}

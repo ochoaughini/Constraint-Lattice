@@ -1,0 +1,81 @@
+body.consumer-view {
+    font-family: 'Arial', sans-serif;
+    background: #E6F7FF;
+    color: #007BFF;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+header {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #E6F7FF, #E9F7EF);
+    position: relative;
+}
+
+h1 {
+    font-size: 3rem;
+    text-align: center;
+    animation: fadeIn 1s ease-in;
+    margin-bottom: 20px;
+}
+
+.cta-button {
+    background: #FD7E14;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: pulse 2s infinite;
+}
+
+.cta-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.spectral-visual {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('assets/wave-pattern.png') no-repeat center;
+    background-size: cover;
+    opacity: 0.2;
+    animation: float 5s ease-in-out infinite;
+}
+
+#features {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
+    padding: 2rem;
+    text-align: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2rem; }
+    .cta-button { padding: 10px 20px; }
+}

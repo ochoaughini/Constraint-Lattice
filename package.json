@@ -1,11 +1,13 @@
 {
-  "name": "constraint-lattice-root",
-  "private": true,
-  "workspaces": [
-    "dashboard/apps/dashboard"
-  ],
+  "name": "voicepasskey-ui",
+  "version": "1.0.0",
+  "description": "UI tests for VoicePasskey",
   "scripts": {
-    "dev:dashboard": "yarn workspace dashboard dev",
-    "build:dashboard": "yarn workspace dashboard build"
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "puppeteer": "^22.10.0",
+    "http-server": "^14.1.1"
   }
 }
