@@ -63,3 +63,4 @@ htmlcov/
 .venv/
 build/
 *.egg-info/
+node_modules/
